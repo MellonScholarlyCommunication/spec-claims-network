@@ -1,7 +1,7 @@
 {
-  "repo": "https://github.com/example/bikeshed-template",
-  "name": "Bikeshed Template",
-  "id": "bikeshed-template",
+  "repo": "https://github.com/MellonScholarlyCommunication/spec-claims-network",
+  "name": "Claims Network",
+  "id": "claims-network",
   "publications": [
     {
       "name": "All commits",
