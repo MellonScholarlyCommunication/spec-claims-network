@@ -3,7 +3,7 @@ Title: Claims Network
 Shortname: claims-network
 Level: none
 Status: LD
-Editor: Patrick Hochstenbach, Ghent University - imec http://idlab.ugent.be/, patrick.hochstenbach@ugent.be
+Editor: Patrick Hochstenbach, Ghent University Library, patrick.hochstenbach@ugent.be
 Editor: Herbert Van de Sompel, DANS, hvdsomp@gmail.com
 Abstract: This document specifies a decentralized claims network.
 Markup Shorthands: markdown yes, css no
@@ -16,7 +16,7 @@ Introduction {#intro}
 
 Research assessment is an integral part of academic life and measures the quality of the research output and, by cumulative evaluations, contributes to the assessment of each researcher. There is a global activity to take a broad range of activities and contributions into account in researcher assessments. Examples are the [[COARA]] (Coalition for Advancing Research Assessment) initiative and OpenAIRE [[Graspos]] researcher profile. A recurring question in these initiatives is: "How to capture information beyond traditional research outputs?" Current Research Information Systems (CRIS) seldom capture activities such as interviews, news reports about a researcher or research project, teaching activities, and contributions to open-source development.  
 
-In 2024, SURF (the ICR cooperative of Dutch education and research institutions) and IMEC-IDLab (the Flemish Internet Technology and Data Science Lab) created an experimental, decentralized **claim network** that collects and distributes claims about researcher activities and contributions. The claims network is depicted in Figure 1 below.
+In 2024, SURF (the ICR cooperative of Dutch education and research institutions) and IMEC-IDLab (the Flemish Internet Technology and Data Science Lab) created an experimental, decentralized [=claim network=] that collects and distributes claims about researcher activities and contributions. The claims network is depicted in Figure 1 below.
 
 <img alt="Claims network architecture" with="700" height="700" src="images/architecture.png">
 
@@ -24,13 +24,83 @@ In 2024, SURF (the ICR cooperative of Dutch education and research institutions)
 
 The processing flow in the claims network is listed below:
 
-- [1] Alice, a Dutch researcher, wants to claim a new contribution at <tt>URL-F</tt> for her scholary record. 
-- [2] Alice, as an account on a national academic **social service** which provides researchers a safe communication medium to support informal researcher interactions with a focus on science, popularization of science, and education. In the Figure 1, the national academic social service <tt>social.edu.nl</tt> is implemented using Mastodon. With a 'toot' message including the <tt>URL-F</tt>, Alice claims her contribution. In her toot message she sends a carbon-copy (cc) of this message to a *claim bot* at the Mastodon handle <tt>@logbot@bots.surf.nl</tt>.
-- [3] Using the Mastodon API, the **claim bot** receives push message for every toot address to the bot account <tt>@logbot@bots.surf.nl</tt>. 
-- [4] The **claim bot** reads the claimed <tt>URL-F</tt> from the incoming toot message and uses one or more *summarizer services* in the network to collect descriptive metadata for this URL.
-- [5] The **summarizer service**, on request, generates a metadata summary for <tt>URL-F</tt>.
-- [6] When a summary is available, the **summarizer service** updates the **claim bot** about the metadata summary.
-- [7] The **claim bot** uses the summary to update a public **activity log** with Carol's contributions. This activity log can be used by a national research productivity portal (e.g. a CRIS system) to update the scholarly record for Alice.
+- [1] Alice, a Dutch researcher, wants to claim a new contribution at <tt>URL-F</tt> for her scholarly record. 
+- [2] Alice, as an account on a national [=academic social networking service=] which provides researchers a safe communication medium to support informal researcher interactions with a focus on science, popularization of science, and education. In the Figure 1, the national academic social service <tt>social.edu.nl</tt> is implemented using Mastodon. With a 'toot' message including the <tt>URL-F</tt>, Alice claims her contribution. In her toot message she sends a carbon-copy (cc) of this message to a [=claim bot=] at the Mastodon handle <tt>@logbot@bots.surf.nl</tt>.
+- [3] Using the Mastodon API, the [=claim bot=] receives push message for every toot address to the bot account <tt>@logbot@bots.surf.nl</tt>. 
+- [4] The [=claim bot=] reads the claimed <tt>URL-F</tt> from the incoming toot message and uses one or more [=summarizer services=] in the network to collect descriptive metadata for this URL.
+- [5] The [=summarizer service=], on request, generates a metadata summary for <tt>URL-F</tt>.
+- [6] When a summary is available, the [=summarizer service=] updates the [=claim bot=] about the metadata summary.
+- [7] The [=claim bot]= uses the summary to update a public [=activity log=] with Carol's contributions. This activity log can be used by a national [=claims service=] (e.g. a CRIS system) to update the scholarly record for Alice.
+
+Functional and non-functional requirements {#functional}
+========================================================
+
+A claims network should have the following functional requirements:
+
+- **Distributed architecture** : The network should operate across multiple social networking services, claim bots, summarizer and claims services to prevent a reliance on a central authority for each of these services.
+- **Broad scope** : The network should allow for the processing of a broad scope of Web resource about which researcher can make claims. The claims are not confined to traditional research outputs but can include various forms of content such as newspaper clips, media appearances,  lectures recordings, and contributions to software development projects, among others.
+- **Automated content summarization** :  The network should automate content summarization for researcher claims. Providing a URL of a claimed Web resource to a claim bot should be sufficient to update the claim service with metadata about that claim.
+- **Automated updated of claims service pages** :  The network should provide automated updated claims service page that aligns with preferences of a researcher. Researchers can provide in their Mastodon profile the  URL of a personal claims service page that should be updated by the network.
+- **Verification of ownership** :  The network should provide the verification of ownership of Mastodon account and claims service pages by supporting backlink verification.
+- **Verification of actors** : The network should provide the verification of actors participating in the network. It should be possible to proof an actor is a researcher and part of some (national) research community.
+- **Selection and filtering** : The network should provide a selection and filtering mechanism for claims by actors that are part of a particular research community. Research is a global enterprise, a claim bot may only provide services for researchers belonging to a national research community, or withing a discipline from that community.
+- **Version history** : The network should provide a version history of all claims that are added to the claims service.
+
+Terminology {#terminology}
+==========================
+
+The following terms are used in this specification:
+
+: <dfn export>Academic social networking service</dfn>
+:: A social network platform such as Mastodon that is used in an academic setting that is used by researchers to publish claims about a contribution to the scholarly record of the researcher.
+
+: <dfn export>Activity Log</dfn>
+:: A public machine-readable Web resource that contains descriptive metadata about [=claims=] created by a researcher combined with provenance information about the [=claim=] itself.
+
+: <dfn export>Artifact</dfn>
+:: An artifact is a Web resource identified by a URL that serves at the main focus of interaction between the participants in the network. Examples of artifacts are traditional scholarly contributions but also interviews, news reports about a researcher or research project, teaching activities, and contributions to open-source development.
+
+: <dfn export>Claim</dfn>
+:: An artifact that is a proof of a researcher activity that needs to become part of the scholarly record of a researcher.
+
+: <dfn export>Claim bot</dfn>
+:: An automated process that works on behalf of the researcher to collect claims, descriptive metadata about such claims and updates the activity Log of a researcher.
+
+: <dfn export>Claims network</dfn>
+:: A decentralized network of evolving claim assertions.
+
+: <dfn export>Claims service</dfn>
+:: A service node that collects claims made by a researcher and provides an public accessible overview activities and contributions of a researcher.
+
+: <dfn export>Data Node</dfn>
+:: A data node is a network node that hosts artifacts. Examples of data nodes are news agencies, institutional repositories, blogs, and governmental websites.
+
+: <dfn export>Inbox</dfn>
+:: An inbox is a Web location conform with the [Event Notifications in Value-Adding Networks](https://www.eventnotifications.net) specification. Inboxes are setup by [=data nodes=] and [=service nodes=] to receive LDN+AS2 JSON-LD messages that are exchanged in the [=claims network=].
+
+: <dfn export>Notification</dfn>
+:: A notification is are JSON-LD messages exchanged in the [=claim network=] using the [Event Notifications in Value-Adding Networks](https://www.eventnotifications.net) specification.
+
+: <dfn export>Service Node</dfn>
+:: A service node provides value-added services for artifacts hosted by [=data nodes=]. An example of a service node is a [=summarizer service=] that generates descriptive metadata for a given Web resource.
+
+: <dfn export>Service Result</dfn>
+:: A service result is any outcome of providing a value-added service for an [=artifact=]. An example of a service result is a JSON document that contains the descriptive metadata generated by a [=summarizer service=].
+
+: <dfn export>Summarizer Service</dfn>
+:: A summarizer service is a service node that, given [=claim=], generates descriptive metadata about the [=claim=].
+
+: <dfn export>Verification Service</dfn>
+:: A verification service is a node in the network that provides that verifies the identities of used by researchers in the [=claims network=].
+
+Network communication patterns {#network-communication-patterns}
+===============================
+
+In a [=claims network=] automated agents, such as the [=claims bot=], operate on behalf of a researcher to update an [=activity log=] and [=claims service=] with descriptive metadata about [=claims=] made by the researcher on a (national) [=academic social networking service=]. The network nodes operate by sending LDN+AS2 between each other that follow the [Event Notifications in Value-Adding Networks](https://www.eventnotifications.net) specification. 
+
+Depending on the type of sender an receiver different types of messages that are specified below. 
+
+## Academic social network service to claimbot ### {#pattern-social-claimbot}
 
 <pre class=biblio>
 {
