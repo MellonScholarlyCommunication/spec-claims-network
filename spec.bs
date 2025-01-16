@@ -1,0 +1,46 @@
+<pre class='metadata'>
+Title: Claims Network
+Shortname: claims-network
+Level: none
+Status: LD
+Editor: Patrick Hochstenbach, Ghent University - imec http://idlab.ugent.be/, patrick.hochstenbach@ugent.be
+Editor: Herbert Van de Sompel, DANS, hvdsomp@gmail.com
+Abstract: This document specifies a decentralized claims network.
+Markup Shorthands: markdown yes, css no
+Canonical URL: _ORCHESTRATOR_CURRENT_BUILD_FULL_LINK_
+Previous Version: _ORCHESTRATOR_PREVIOUS_BUILD_FULL_LINK_
+</pre>
+
+Introduction {#intro}
+=====================
+
+Research assessment is an integral part of academic life and measures the quality of the research output and, by cumulative evaluations, contributes to the assessment of each researcher. There is a global activity to take a broad range of activities and contributions into account in researcher assessments. Examples are the [[COARA]] (Coalition for Advancing Research Assessment) initiative and OpenAIRE [[Graspos]] researcher profile. A recurring question in these initiatives is: "How to capture information beyond traditional research outputs?" Current Research Information Systems (CRIS) seldom capture activities such as interviews, news reports about a researcher or research project, teaching activities, and contributions to open-source development.  
+
+In 2024, SURF (the ICR cooperative of Dutch education and research institutions) and IMEC-IDLab (the Flemish Internet Technology and Data Science Lab) created an experimental, decentralized **claim network** that collects and distributes claims about researcher activities and contributions. The claims network is depicted in Figure 1 below.
+
+<img alt="Claims network architecture" with="700" height="700" src="images/architecture.png">
+
+*Figure 1: Overview of the claims network*
+
+The processing flow in the claims network is listed below:
+
+- [1] Alice, a Dutch researcher, wants to claim a new contribution at <tt>URL-F</tt> for her scholary record. 
+- [2] Alice, as an account on a national academic **social service** which provides researchers a safe communication medium to support informal researcher interactions with a focus on science, popularization of science, and education. In the Figure 1, the national academic social service <tt>social.edu.nl</tt> is implemented using Mastodon. With a 'toot' message including the <tt>URL-F</tt>, Alice claims her contribution. In her toot message she sends a carbon-copy (cc) of this message to a *claim bot* at the Mastodon handle <tt>@logbot@bots.surf.nl</tt>.
+- [3] Using the Mastodon API, the **claim bot** receives push message for every toot address to the bot account <tt>@logbot@bots.surf.nl</tt>. 
+- [4] The **claim bot** reads the claimed <tt>URL-F</tt> from the incoming toot message and uses one or more *summarizer services* in the network to collect descriptive metadata for this URL.
+- [5] The **summarizer service**, on request, generates a metadata summary for <tt>URL-F</tt>.
+- [6] When a summary is available, the **summarizer service** updates the **claim bot** about the metadata summary.
+- [7] The **claim bot** uses the summary to update a public **activity log** with Carol's contributions. This activity log can be used by a national research productivity portal (e.g. a CRIS system) to update the scholarly record for Alice.
+
+<pre class=biblio>
+{
+	"COARA": {
+		"href": "https://coara.eu",
+		"title": "Coalition for Advancing Research Assessment (CoARA)"
+	},
+	"Graspos": {
+		"href": "https://www.openaire.eu/graspos-moving-forward-to-a-more-responsible-research-assessment",
+		"title": "GraspOS: moving forward to a more responsible research assessment"
+	}
+}
+</pre>
