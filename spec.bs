@@ -100,7 +100,54 @@ In a [=claims network=] automated agents, such as the [=claims bot=], operate on
 
 Depending on the type of sender an receiver different types of messages that are specified below. 
 
-## Academic social network service to claimbot ### {#pattern-social-claimbot}
+## Academic social network service to claimbot ## {#pattern-social-claimbot}
+
+The **Academic social network service to claimbot** pattern is used by the [=academic social networking service=] to forward [=claims=] to a [=claims bot=]. Example 1 provides an example of such a [=claim=] made by the researcher Alice on a Mastodon instance hosted at <tt>https://social.edu.nl</tt>.
+
+<div class="example">
+Alice creates a toot message on <tt>social.edu.nl</tt> claiming her contribution <tt>https://parlaiment.nl/questions/2025-21-121291</tt>.
+
+<pre>
+I just submitted by first question to the Dutch parliament! 
+https://parlaiment.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl 
+</pre>
+
+We assume the [=claim bot=] has the Mastodon account <tt>@logbot@bots.surf.nl</tt>.
+</div>
+
+We assume that the [=claims network=] includes the capability to transform (toot) messages that are forwarded to the [=claims bot=] into a LDN+AS2 message. An example implementation could involve a process operating on behalf of the [=claim bot=], which monitors the <tt>@logbot@bots.surf.nl</tt> account on <tt>bots.surf.nl</tt> using the Mastodon API and generates LDN+AS2 messages for each incoming toot directed at the [=claim bot=]. For such a LDN+AS2 message the following properties hold:
+
+- The activity identifier is a new minted identifier for every toot message.
+- The activity type is <tt>Announce</tt>.
+- The `actor` property should contain:
+	- As value of the <tt>id</tt> property the social networking profile URL of the researcher who created the original post.
+	- As value of the <tt>name</tt> property, the name of the researcher.
+	- As value of the <tt>type</tt> property, the fixed string <tt>Person</tt>.
+- The `origin` property should contain information about the LDN+AS2 generator software:
+	- As value of the <tt>id</tt> property, a public WebID profile URL.
+	- As value of the <tt>name</tt> property, the name of the  generator software.
+	- As value of the <tt>type</tt> property, the fixed string <tt>Service</tt>.
+- The `object` property should contain information about the forwarded social networking post:
+	- As value of the <tt>id</tt> property, the URL of the social networking post.
+	- As value of the <tt>content</tt> property, the post message.
+	- The <tt>url</tt> property is a collection of zero or more URL-s that are mentioned in the post message. Each url item has the following properties:
+		- As value of the <tt>href</tt> property, the URL that is mentioned in the post message.
+		- As value of the <tt>type</tt> property, the fixed string <tt>Link</tt>.
+	- As value of the <tt>type</tt> property, the fixed string <tt>Note</tt>.
+- The `published` property should contain in ISO 8601 format the datetime of the original post message.
+
+In Example 2, we illustrate the structure of an LDN+AS2 message corresponding to the toot message presented in Example 1.
+
+<div class="example">
+A generated LDN+AS2 message for the toot in Example 1.
+
+<pre class=include-code>
+path: examples/example2.jsonld
+highlight: json
+show: 
+</pre>
+
+</div>
 
 <pre class=biblio>
 {

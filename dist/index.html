@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version ac5ea272d, updated Fri Dec 6 15:45:15 2024 -0800" name="generator">
   <link href="_ORCHESTRATOR_CURRENT_BUILD_FULL_LINK_" rel="canonical">
-  <meta content="58e553ee44cccac0510fa29c58bcbf60a7da94cd" name="revision">
+  <meta content="b54f042558f37c41807e5d4323186ef24586c7d9" name="revision">
   <meta content="dark light" name="color-scheme">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
@@ -2047,6 +2047,127 @@ a.self-link::before            { content: "¶"; }
 .heading > a.self-link::before { content: "§"; }
 dfn > a.self-link::before      { content: "#"; }
 </style>
+<style>/* Boilerplate: style-syntax-highlighting */
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+
+@media (prefers-color-scheme: dark) {
+    .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
+
+    c-[a] { color: #d33682 } /* Keyword.Declaration */
+    c-[b] { color: #d33682 } /* Keyword.Type */
+    c-[c] { color: #2aa198 } /* Comment */
+    c-[d] { color: #2aa198 } /* Comment.Multiline */
+    c-[e] { color: #268bd2 } /* Name.Attribute */
+    c-[f] { color: #b58900 } /* Name.Tag */
+    c-[g] { color: #cb4b16 } /* Name.Variable */
+    c-[k] { color: #d33682 } /* Keyword */
+    c-[l] { color: #657b83 } /* Literal */
+    c-[m] { color: #657b83 } /* Literal.Number */
+    c-[n] { color: #268bd2 } /* Name */
+    c-[o] { color: #657b83 } /* Operator */
+    c-[p] { color: #657b83 } /* Punctuation */
+    c-[s] { color: #6c71c4 } /* Literal.String */
+    c-[t] { color: #6c71c4 } /* Literal.String.Single */
+    c-[u] { color: #6c71c4 } /* Literal.String.Double */
+    c-[ch] { color: #2aa198 } /* Comment.Hashbang */
+    c-[cp] { color: #2aa198 } /* Comment.Preproc */
+    c-[cpf] { color: #2aa198 } /* Comment.PreprocFile */
+    c-[c1] { color: #2aa198 } /* Comment.Single */
+    c-[cs] { color: #2aa198 } /* Comment.Special */
+    c-[kc] { color: #d33682 } /* Keyword.Constant */
+    c-[kn] { color: #d33682 } /* Keyword.Namespace */
+    c-[kp] { color: #d33682 } /* Keyword.Pseudo */
+    c-[kr] { color: #d33682 } /* Keyword.Reserved */
+    c-[ld] { color: #657b83 } /* Literal.Date */
+    c-[nc] { color: #268bd2 } /* Name.Class */
+    c-[no] { color: #268bd2 } /* Name.Constant */
+    c-[nd] { color: #268bd2 } /* Name.Decorator */
+    c-[ni] { color: #268bd2 } /* Name.Entity */
+    c-[ne] { color: #268bd2 } /* Name.Exception */
+    c-[nf] { color: #268bd2 } /* Name.Function */
+    c-[nl] { color: #268bd2 } /* Name.Label */
+    c-[nn] { color: #268bd2 } /* Name.Namespace */
+    c-[py] { color: #268bd2 } /* Name.Property */
+    c-[ow] { color: #657b83 } /* Operator.Word */
+    c-[mb] { color: #657b83 } /* Literal.Number.Bin */
+    c-[mf] { color: #657b83 } /* Literal.Number.Float */
+    c-[mh] { color: #657b83 } /* Literal.Number.Hex */
+    c-[mi] { color: #657b83 } /* Literal.Number.Integer */
+    c-[mo] { color: #657b83 } /* Literal.Number.Oct */
+    c-[sa] { color: #6c71c4 } /* Literal.String.Affix */
+    c-[sb] { color: #6c71c4 } /* Literal.String.Backtick */
+    c-[sc] { color: #6c71c4 } /* Literal.String.Char */
+    c-[dl] { color: #6c71c4 } /* Literal.String.Delimiter */
+    c-[sd] { color: #6c71c4 } /* Literal.String.Doc */
+    c-[se] { color: #6c71c4 } /* Literal.String.Escape */
+    c-[sh] { color: #6c71c4 } /* Literal.String.Heredoc */
+    c-[si] { color: #6c71c4 } /* Literal.String.Interpol */
+    c-[sx] { color: #6c71c4 } /* Literal.String.Other */
+    c-[sr] { color: #6c71c4 } /* Literal.String.Regex */
+    c-[ss] { color: #6c71c4 } /* Literal.String.Symbol */
+    c-[fm] { color: #268bd2 } /* Name.Function.Magic */
+    c-[vc] { color: #cb4b16 } /* Name.Variable.Class */
+    c-[vg] { color: #cb4b16 } /* Name.Variable.Global */
+    c-[vi] { color: #cb4b16 } /* Name.Variable.Instance */
+    c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
+    c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
+}
+</style>
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://knows.idlab.ugent.be/"> <img alt="KNoWS" height="48" src="logo.png"> </a> </p>
@@ -2083,7 +2204,11 @@ Parts of this work may be from another specification document.  If so, those par
     <li><a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
     <li><a href="#functional"><span class="secno">2</span> <span class="content">Functional and non-functional requirements</span></a>
     <li><a href="#terminology"><span class="secno">3</span> <span class="content">Terminology</span></a>
-    <li><a href="#network-communication-patterns"><span class="secno">4</span> <span class="content">Network communication patterns</span></a>
+    <li>
+     <a href="#network-communication-patterns"><span class="secno">4</span> <span class="content">Network communication patterns</span></a>
+     <ol class="toc">
+      <li><a href="#pattern-social-claimbot"><span class="secno">4.1</span> <span class="content">Academic social network service to claimbot</span></a>
+     </ol>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -2214,6 +2339,171 @@ Parts of this work may be from another specification document.  If so, those par
    <h2 class="heading settled" data-level="4" id="network-communication-patterns"><span class="secno">4. </span><span class="content">Network communication patterns</span><a class="self-link" href="#network-communication-patterns"></a></h2>
    <p>In a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network④">claims network</a> automated agents, such as the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot④">claims bot</a>, operate on behalf of a researcher to update an <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log①">activity log</a> and <a data-link-type="dfn" href="#claims-service" id="ref-for-claims-service①">claims service</a> with descriptive metadata about <a data-link-type="dfn" href="#claim" id="ref-for-claim④">claims</a> made by the researcher on a (national) <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service①">academic social networking service</a>. The network nodes operate by sending LDN+AS2 between each other that follow the <a href="https://www.eventnotifications.net">Event Notifications in Value-Adding Networks</a> specification.</p>
    <p>Depending on the type of sender an receiver different types of messages that are specified below.</p>
+   <h3 class="heading settled" data-level="4.1" id="pattern-social-claimbot"><span class="secno">4.1. </span><span class="content">Academic social network service to claimbot</span><a class="self-link" href="#pattern-social-claimbot"></a></h3>
+   <p>
+    The <strong>Academic social network service to claimbot</strong> pattern is used by the <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service②">academic social networking service</a> to forward <a data-link-type="dfn" href="#claim" id="ref-for-claim⑤">claims</a> to a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑤">claims bot</a>. Example 1 provides an example of such a <a data-link-type="dfn" href="#claim" id="ref-for-claim⑥">claim</a> made by the researcher Alice on a Mastodon instance hosted at 
+    <tt>https://social.edu.nl</tt>
+    .
+   </p>
+   <div class="example" id="example-ea2c4eb1">
+    <a class="self-link" href="#example-ea2c4eb1"></a> Alice creates a toot message on 
+    <tt>social.edu.nl</tt>
+     claiming her contribution 
+    <tt>https://parlaiment.nl/questions/2025-21-121291</tt>
+    . 
+<pre>I just submitted by first question to the Dutch parliament! 
+https://parlaiment.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl 
+</pre>
+    <p>
+     We assume the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑥">claim bot</a> has the Mastodon account 
+     <tt>@logbot@bots.surf.nl</tt>
+     .
+    </p>
+   </div>
+   <p>
+    We assume that the <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network⑤">claims network</a> includes the capability to transform (toot) messages that are forwarded to the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑦">claims bot</a> into a LDN+AS2 message. An example implementation could involve a process operating on behalf of the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑧">claim bot</a>, which monitors the 
+    <tt>@logbot@bots.surf.nl</tt>
+     account on 
+    <tt>bots.surf.nl</tt>
+     using the Mastodon API and generates LDN+AS2 messages for each incoming toot directed at the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑨">claim bot</a>. For such a LDN+AS2 message the following properties hold:
+   </p>
+   <ul>
+    <li data-md>
+     <p>The activity identifier is a new minted identifier for every toot message.</p>
+    <li data-md>
+     <p>
+      The activity type is 
+      <tt>Announce</tt>
+      .
+     </p>
+    <li data-md>
+     <p>The <code>actor</code> property should contain:</p>
+     <ul>
+      <li data-md>
+       <p>
+        As value of the 
+        <tt>id</tt>
+         property the social networking profile URL of the researcher who created the original post.
+       </p>
+      <li data-md>
+       <p>
+        As value of the 
+        <tt>name</tt>
+         property, the name of the researcher.
+       </p>
+      <li data-md>
+       <p>
+        As value of the 
+        <tt>type</tt>
+         property, the fixed string 
+        <tt>Person</tt>
+        .
+       </p>
+     </ul>
+    <li data-md>
+     <p>The <code>origin</code> property should contain information about the LDN+AS2 generator software:</p>
+     <ul>
+      <li data-md>
+       <p>
+        As value of the 
+        <tt>id</tt>
+         property, a public WebID profile URL.
+       </p>
+      <li data-md>
+       <p>
+        As value of the 
+        <tt>name</tt>
+         property, the name of the  generator software.
+       </p>
+      <li data-md>
+       <p>
+        As value of the 
+        <tt>type</tt>
+         property, the fixed string 
+        <tt>Service</tt>
+        .
+       </p>
+     </ul>
+    <li data-md>
+     <p>The <code>object</code> property should contain information about the forwarded social networking post:</p>
+     <ul>
+      <li data-md>
+       <p>
+        As value of the 
+        <tt>id</tt>
+         property, the URL of the social networking post.
+       </p>
+      <li data-md>
+       <p>
+        As value of the 
+        <tt>content</tt>
+         property, the post message.
+       </p>
+      <li data-md>
+       <p>
+        The 
+        <tt>url</tt>
+         property is a collection of zero or more URL-s that are mentioned in the post message. Each url item has the following properties:
+       </p>
+       <ul>
+        <li data-md>
+         <p>
+          As value of the 
+          <tt>href</tt>
+           property, the URL that is mentioned in the post message.
+         </p>
+        <li data-md>
+         <p>
+          As value of the 
+          <tt>type</tt>
+           property, the fixed string 
+          <tt>Link</tt>
+          .
+         </p>
+       </ul>
+      <li data-md>
+       <p>
+        As value of the 
+        <tt>type</tt>
+         property, the fixed string 
+        <tt>Note</tt>
+        .
+       </p>
+     </ul>
+    <li data-md>
+     <p>The <code>published</code> property should contain in ISO 8601 format the datetime of the original post message.</p>
+   </ul>
+   <p>In Example 2, we illustrate the structure of an LDN+AS2 message corresponding to the toot message presented in Example 1.</p>
+   <div class="example" id="example-6825a3fc">
+    <a class="self-link" href="#example-6825a3fc"></a> A generated LDN+AS2 message for the toot in Example 1. 
+<pre class="include-code highlight"><c- p>{</c->
+    <c- f>"@context"</c-><c- p>:</c-> <c- u>"https://www.w3.org/ns/activitystreams"</c-><c- p>,</c->
+    <c- f>"id"</c-><c- p>:</c-> <c- u>"urn:uuid:6d21a2ae-df59-40d9-999c-18e19277d21a"</c-><c- p>,</c->
+    <c- f>"type"</c-><c- p>:</c-> <c- u>"Announce"</c-><c- p>,</c->
+    <c- f>"published"</c-><c- p>:</c-> <c- u>"2025-02-02T06:45:54.000Z"</c-><c- p>,</c->
+    <c- f>"actor"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"id"</c-><c- p>:</c-> <c- u>"https://social.edu.nl/@alice"</c-><c- p>,</c->
+      <c- f>"name"</c-><c- p>:</c-> <c- u>"Alice"</c-><c- p>,</c->
+      <c- f>"type"</c-><c- p>:</c-> <c- u>"Person"</c->
+    <c- p>},</c->
+    <c- f>"origin"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"id"</c-><c- p>:</c-> <c- u>"https://mycontributions.info/service/m/profile/card#me"</c-><c- p>,</c->
+      <c- f>"name"</c-><c- p>:</c-> <c- u>"Mastodon Bot"</c-><c- p>,</c->
+      <c- f>"type"</c-><c- p>:</c-> <c- u>"Service"</c->
+    <c- p>},</c->
+    <c- f>"object"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"id"</c-><c- p>:</c-> <c- u>"https://social.edu.nl/@alice/112891078566219289"</c-><c- p>,</c->
+      <c- f>"content"</c-><c- p>:</c-> <c- u>"&lt;p>I just submitted by first question to the Dutch parliament! https://parlaiment.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl"</c-><c- p>,</c->
+      <c- f>"url"</c-><c- p>:</c-> <c- p>[</c->
+        <c- p>{</c->
+          <c- f>"type"</c-><c- p>:</c-> <c- u>"Link"</c-><c- p>,</c->
+          <c- f>"href"</c-><c- p>:</c-> <c- u>"https://parlaiment.nl/questions/2025-21-121291"</c->
+        <c- p>}</c->
+      <c- p>],</c->
+      <c- f>"type"</c-><c- p>:</c-> <c- u>"Note"</c->
+    <c- p>}</c->
+<c- p>}</c-></pre>
+   </div>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
@@ -2592,12 +2882,12 @@ function parseHTML(markup) {
 "use strict";
 {
 let dfnPanelData = {
-"academic-social-networking-service": {"dfnID":"academic-social-networking-service","dfnText":"Academic social networking service","external":false,"refSections":[{"refs":[{"id":"ref-for-academic-social-networking-service"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460"}],"title":"4. Network communication patterns"}],"url":"#academic-social-networking-service"},
+"academic-social-networking-service": {"dfnID":"academic-social-networking-service","dfnText":"Academic social networking service","external":false,"refSections":[{"refs":[{"id":"ref-for-academic-social-networking-service"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460"}],"title":"4. Network communication patterns"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2461"}],"title":"4.1. Academic social network service to claimbot"}],"url":"#academic-social-networking-service"},
 "activity-log": {"dfnID":"activity-log","dfnText":"Activity Log","external":false,"refSections":[{"refs":[{"id":"ref-for-activity-log"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-activity-log\u2460"}],"title":"4. Network communication patterns"}],"url":"#activity-log"},
 "artifact": {"dfnID":"artifact","dfnText":"Artifact","external":false,"refSections":[{"refs":[{"id":"ref-for-artifact"}],"title":"3. Terminology"}],"url":"#artifact"},
-"claim": {"dfnID":"claim","dfnText":"Claim","external":false,"refSections":[{"refs":[{"id":"ref-for-claim"},{"id":"ref-for-claim\u2460"},{"id":"ref-for-claim\u2461"},{"id":"ref-for-claim\u2462"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-claim\u2463"}],"title":"4. Network communication patterns"}],"url":"#claim"},
-"claim-bot": {"dfnID":"claim-bot","dfnText":"Claim bot","external":false,"refSections":[{"refs":[{"id":"ref-for-claim-bot"},{"id":"ref-for-claim-bot\u2460"},{"id":"ref-for-claim-bot\u2461"},{"id":"ref-for-claim-bot\u2462"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claim-bot\u2463"}],"title":"4. Network communication patterns"}],"url":"#claim-bot"},
-"claims-network": {"dfnID":"claims-network","dfnText":"Claims network","external":false,"refSections":[{"refs":[{"id":"ref-for-claims-network"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claims-network\u2460"},{"id":"ref-for-claims-network\u2461"},{"id":"ref-for-claims-network\u2462"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-claims-network\u2463"}],"title":"4. Network communication patterns"}],"url":"#claims-network"},
+"claim": {"dfnID":"claim","dfnText":"Claim","external":false,"refSections":[{"refs":[{"id":"ref-for-claim"},{"id":"ref-for-claim\u2460"},{"id":"ref-for-claim\u2461"},{"id":"ref-for-claim\u2462"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-claim\u2463"}],"title":"4. Network communication patterns"},{"refs":[{"id":"ref-for-claim\u2464"},{"id":"ref-for-claim\u2465"}],"title":"4.1. Academic social network service to claimbot"}],"url":"#claim"},
+"claim-bot": {"dfnID":"claim-bot","dfnText":"Claim bot","external":false,"refSections":[{"refs":[{"id":"ref-for-claim-bot"},{"id":"ref-for-claim-bot\u2460"},{"id":"ref-for-claim-bot\u2461"},{"id":"ref-for-claim-bot\u2462"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claim-bot\u2463"}],"title":"4. Network communication patterns"},{"refs":[{"id":"ref-for-claim-bot\u2464"},{"id":"ref-for-claim-bot\u2465"},{"id":"ref-for-claim-bot\u2466"},{"id":"ref-for-claim-bot\u2467"},{"id":"ref-for-claim-bot\u2468"}],"title":"4.1. Academic social network service to claimbot"}],"url":"#claim-bot"},
+"claims-network": {"dfnID":"claims-network","dfnText":"Claims network","external":false,"refSections":[{"refs":[{"id":"ref-for-claims-network"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claims-network\u2460"},{"id":"ref-for-claims-network\u2461"},{"id":"ref-for-claims-network\u2462"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-claims-network\u2463"}],"title":"4. Network communication patterns"},{"refs":[{"id":"ref-for-claims-network\u2464"}],"title":"4.1. Academic social network service to claimbot"}],"url":"#claims-network"},
 "claims-service": {"dfnID":"claims-service","dfnText":"Claims service","external":false,"refSections":[{"refs":[{"id":"ref-for-claims-service"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claims-service\u2460"}],"title":"4. Network communication patterns"}],"url":"#claims-service"},
 "data-node": {"dfnID":"data-node","dfnText":"Data Node","external":false,"refSections":[{"refs":[{"id":"ref-for-data-node"},{"id":"ref-for-data-node\u2460"}],"title":"3. Terminology"}],"url":"#data-node"},
 "inbox": {"dfnID":"inbox","dfnText":"Inbox","external":false,"refSections":[],"url":"#inbox"},
