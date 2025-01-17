@@ -102,7 +102,7 @@ Depending on the type of sender an receiver different types of messages that are
 
 ## Academic social network service to claimbot ## {#pattern-social-claimbot}
 
-The **Academic social network service to claimbot** pattern is used by the [=academic social networking service=] to forward [=claims=] to a [=claims bot=]. Example 1 provides an example of such a [=claim=] made by the researcher Alice on a Mastodon instance hosted at <tt>https://social.edu.nl</tt>.
+The **academic social network service to claimbot** pattern is used by the [=academic social networking service=] to forward [=claims=] to a [=claims bot=]. Example 1 provides an example of such a [=claim=] made by the researcher Alice on a Mastodon instance hosted at <tt>https://social.edu.nl</tt>.
 
 <div class="example">
 Alice creates a toot message on <tt>social.edu.nl</tt> claiming her contribution <tt>https://parlaiment.nl/questions/2025-21-121291</tt>.
@@ -115,10 +115,14 @@ https://parlaiment.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
 We assume the [=claim bot=] has the Mastodon account <tt>@logbot@bots.surf.nl</tt>.
 </div>
 
-We assume that the [=claims network=] includes the capability to transform (toot) messages that are forwarded to the [=claims bot=] into a LDN+AS2 message. An example implementation could involve a process operating on behalf of the [=claim bot=], which monitors the <tt>@logbot@bots.surf.nl</tt> account on <tt>bots.surf.nl</tt> using the Mastodon API and generates LDN+AS2 messages for each incoming toot directed at the [=claim bot=]. For such a LDN+AS2 message the following properties hold:
+We assume that the [=claims network=] includes the capability to transform (toot) messages that are forwarded to the [=claims bot=] into a LDN+AS2 message. An example implementation could involve a process operating on behalf of the [=claim bot=], which monitors the <tt>@logbot@bots.surf.nl</tt> account on <tt>bots.surf.nl</tt> using the Mastodon API and generates LDN+AS2 messages for each incoming toot directed at the [=claim bot=].
 
-- The activity identifier is a new minted identifier for every toot message.
-- The activity type is <tt>Announce</tt>.
+### Announce ### {#pattern-social-claimbot-announce}
+
+An [=academic social networking service=] should trigger a [=claim bot=] by sending an LDN+AS2 message to the [=Inbox=] of the [=claim bot=] with the following properties:
+
+- The `id` property should contain a new minted identifier for every toot message.
+- The `type` property is the fixed string <tt>Announce</tt>.
 - The `actor` property should contain:
 	- As value of the <tt>id</tt> property the social networking profile URL of the researcher who created the original post.
 	- As value of the <tt>name</tt> property, the name of the researcher.
@@ -146,8 +150,153 @@ path: examples/example2.jsonld
 highlight: json
 show: 
 </pre>
-
 </div>
+
+## Claimbot to summarizer service ## {#pattern-claimbot-summarizer}
+
+The **claimbot to summarizer service** pattern is used by a [=claim bot=] to request the generation of descriptive metadata for a [=claim=] at one or more [=summarizer services=]. Example 1, contains an example of such a [=claim=]: <tt>https://parlaiment.nl/questions/2025-21-121291</tt>. A   [=summarizer service=] can have many types of implementations such as [Zotero Translation Server](https://github.com/zotero/translation-server), web archives, [Crossref](https://crossref.org) clients, web crawlers, AI-driven text analyzers to name a few. What all implementation have in common is that they employ the LDN+AS2 messages using the Event Notifications protocol to communicate asynchronously with the [=claims bot=]. Asynchronous messaging enables the [=summarizer service=] to scale efficiently by executing data extraction algorithms through batch jobs, as opposed to real-time processing.
+
+### Offer ### {#pattern-claimbot-summarizer-offer}
+
+To request a summary for a [=claim=] an LDN2+AS2 message should be send to the [=Inbox=] of a [=summarizer service=] with the following properties:
+
+- The `id` property should contain a new minted identifier for every toot message.
+- The `type` property is the fixed string <tt>Offer</tt>.
+- The `actor` property should contain information about the LDN+AS2 generator software:
+	- As value of the <tt>id</tt> property, a public WebID profile URL.
+	- As value of the <tt>name</tt> property, the name of the  generator software.
+	- As value of the <tt>inbox</tt> property, the [=Inbox=] of the [=claim bot=].
+	- As value of the <tt>type</tt> property, the fixed string <tt>Service</tt>.
+- The `object` property should contain information about the [=claim=]:
+	- As value of the <tt>id</tt> property, the URL of the [=claim=].
+	- As value of the <tt>type</tt> property, the fixed string <tt>Document</tt>.
+- The `published` property should contain in ISO 8601 format the datetime of the original post message.
+
+In Example 3, we illustrate the structure of an LDN+AS2 message that the [=claim bot=] sends to the [=summarizer service=] pertaining to the [=claim=] of Example 1.
+
+<div class="example">
+A generated LDN+AS2 message for the [=claim=] <tt>https://parlaiment.nl/questions/2025-21-121291</tt> in Example 1.
+
+<pre class=include-code>
+path: examples/example3.jsonld
+highlight: json
+show: 
+</pre>
+</div>
+
+## Summarizer to claimbot service## {#pattern-summarizer-claimbot}
+
+The [=summarizer service=] has the four possible responses to respond to an LDN+AS2 message received in the [=Inbox=] of the service:
+
+- [1] Ignore the LDN+AS2 message if it is not well-formatted.
+- [2] Tentatively accept the LDN+AS2 message as a new request for metadata extraction. Optionally the [=summarizer service=] can send an <tt>Accept</tt> LDN+AS2 message to the [=Inbox=] of the [=claim bot=] as confirmation.
+- [3] Reject the LDN+AS2 message for one of two reasons. In both of these cases the [=summarizer service=] should send a <tt>Reject</tt> LDN+AS2 message to the [=Inbox=] of the [=claim bot=]:
+	- [a] No attempt was made to summarize the [=claim=] due to technical, privacy or security reasons.
+	- [b] An attempt was made to summarize the [=claim=], but it lead a processing failure.
+- [4] If summarization of [=claim=] has a (possible empty) result, then an <tt>Announce</tt> LDN+AS2 message should be send to the [=Inbox=] of the [=claim bot=].
+
+For each of the four scenarios we will present below the requirements for the LDN+AS2 messages.
+
+### Accept
+
+To (tentatively) accept an offer for the summarization of a [=claim=], the [=summarizer service=] can optionally send an <tt>Accept</tt> LDN+AS2 message to the [=Inbox=] of the [=claim bot=] with the following properties:
+
+- The `id` property should contain a new minted identifier for every toot message.
+- The `type` property is the fixed string <tt>Accept</tt>.
+- The `actor` property should contain information about the [=summarizer service=]:
+	- As value of the <tt>id</tt> property, a public WebID profile URL.
+	- As value of the <tt>name</tt> property, the name of the  generator software.
+	- As value of the <tt>inbox</tt> property, the [=Inbox=] of the [=summarizer service=].
+	- As value of the <tt>type</tt> property, the fixed string <tt>Service</tt>.
+- The `context` property should contain the URL of the [=claim=].
+- The `inReplyTo` property should contain the identifier of the <tt>Offer</tt> that was sent by the [=claim bot=] to the [=summarizer service=]. 
+- The `object` property should contain in-line the complete content of the <tt>Offer</tt> that was sent by the [=claim bot=] to the [=summarizer service=].
+- The `published` property should contain in ISO 8601 format the datetime of the original post message.
+
+In Example 4, we illustrate the structure of an LDN+AS2 message that the [=summarizer service=] can send to the [=claim bot=] in to tentatively accept the <tt>Offer</tt> send in Example 3.
+
+<div class="example">
+
+An <tt>Accept</tt> LDN+AS2 message send by the [=summarizer service=] to the [=claim bot=] in response to the <tt>Offer</tt> send in Example 3.
+
+<pre class=include-code>
+path: examples/example4.jsonld
+highlight: json
+show: 
+</pre>
+</div>
+
+### Reject
+
+To reject an offer for the summarization of a [=claim=], the [=summarizer service=] should send a <tt>Reject</tt> LDN+AS2 message to the [=Inbox=] of the [=claim bot=] with the following properties:
+
+- The `id` property should contain a new minted identifier for every toot message.
+- The `type` property is the fixed string <tt>Reject</tt>.
+- The `actor` property should contain information about the [=summarizer service=]:
+	- As value of the <tt>id</tt> property, a public WebID profile URL.
+	- As value of the <tt>name</tt> property, the name of the  generator software.
+	- As value of the <tt>inbox</tt> property, the [=Inbox=] of the [=summarizer service=].
+	- As value of the <tt>type</tt> property, the fixed string <tt>Service</tt>.
+- The `context` property should contain the URL of the [=claim=].
+- The `inReplyTo` property should contain the identifier of the <tt>Offer</tt> that was sent by the [=claim bot=] to the [=summarizer service=]. 
+- The `object` property should contain in-line the complete content of the <tt>Offer</tt> that was sent by the [=claim bot=] to the [=summarizer service=].
+- The `published` property should contain in ISO 8601 format the datetime of the original post message.
+- A `summary` property may be available that contains free text explaining the reason for rejecting the <tt>Offer</tt>.
+
+In Example 5, we illustrate the structure of an LDN+AS2 message that the [=summarizer service=] can send to the [=claim bot=] in reject the <tt>Offer</tt> send in Example 3.
+
+<div class="example">
+
+A <tt>Reject</tt> LDN+AS2 message send by the [=summarizer service=] to the [=claim bot=] in response to the <tt>Offer</tt> send in Example 3.
+
+<pre class=include-code>
+path: examples/example5.jsonld
+highlight: json
+show: 
+</pre>
+</div>
+
+### Announce
+
+To announce the result for the summarization of a [=claim=], the [=summarizer service=] should send an <tt>Announce</tt> LDN+AS2 message to the [=Inbox=] of the [=claim bot=] with the following properties:
+
+- The `id` property should contain a new minted identifier for every toot message.
+- The `type` property is the fixed string <tt>Announce</tt>.
+- The `actor` property should contain information about the [=summarizer service=]:
+	- As value of the <tt>id</tt> property, a public WebID profile URL.
+	- As value of the <tt>name</tt> property, the name of the  generator software.
+	- As value of the <tt>inbox</tt> property, the [=Inbox=] of the [=summarizer service=].
+	- As value of the <tt>type</tt> property, the fixed string <tt>Service</tt>.
+- The `context` property should contain the URL of the [=claim=].
+- The `inReplyTo` property should contain the identifier of the <tt>Offer</tt> that was sent by the [=claim bot=] to the [=summarizer service=]. 
+- The `object` property should contain information where to find the [=Service Result=] document that contains the extracted metadata for a [=claim=]:
+	- As value of the <tt>id</tt> property, a public URL to a summarization document should be provide.
+	- As value of the <tt>type</tt> property, the fixed string <tt>Document</tt>.
+- The `published` property should contain in ISO 8601 format the datetime of the original post message.
+
+In Example 6, we illustrate the structure of an LDN+AS2 message that the [=summarizer service=] can send to the [=claim bot=] to announce the summary for the [=claim=] of Example 3.
+
+<div class="example">
+
+An <tt>Announce</tt> LDN+AS2 message send by the [=summarizer service=] to the [=claim bot=] in response to the <tt>Offer</tt> send in Example 3.
+
+<pre class=include-code>
+path: examples/example6.jsonld
+highlight: json
+show: 
+</pre>
+</div>
+
+[=Service Result=] summarization results can be serialized using many formats. Within a [=claims network=] it is essential for network partners to reach a common agreement on the expected output format. Examples of potential formats include, but are not limited to, [CSL JSON](https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html), [schema.org](https://schema.org) and [Bibo](https://www.dublincore.org/specifications/bibo/bibo/bibo.rdf.xml).
+
+## Claim bot to Academic social network service## {#pattern-claimbot-social}
+
+TDB
+
+Trust {#trust}
+===============================
+
+TDB
 
 <pre class=biblio>
 {
