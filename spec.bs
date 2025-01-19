@@ -108,7 +108,7 @@ The **academic social network service to claimbot** pattern is used by the [=aca
 Alice creates a toot message on <tt>social.edu.nl</tt> claiming her contribution <tt>https://parlaiment.nl/questions/2025-21-121291</tt>.
 
 <pre>
-I just submitted by first question to the Dutch parliament! 
+I just submitted my first question to the Dutch parliament! 
 https://parlaiment.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl 
 </pre>
 
