@@ -306,7 +306,7 @@ show:
 
 ## Claim bot to the activity log service ## {#pattern-activity-log}
 
-The **claim bot to the activity log service** pattern is used by a [=claim bot=] to update an [=activity log=] about a summary that was made for a [=claim=]. Example 1, contains an example of such a claim: https://parliament.nl/questions/2025-21-121291 . Example 7, provides an example of a summary that was generated for that [=claim=]. To publish the summary in an application-neutral format while including its provenance, we propose a [=Claim Summary=] RDF source, of which we will provide an example in the following subsection, an explained in section 5. This [=claim summary=] will be offered to an [=activity log=] using an LDN+AS2 event notification.
+The **claim bot to the activity log service** pattern is used by a [=claim bot=] to update an [=activity log=] about a summary that was made for a [=claim=]. Example 1, contains an example of such a claim: https://parliament.nl/questions/2025-21-121291 . Example 7, provides an example of a summary that was generated for that [=claim=]. To publish the summary in an application-neutral format while including its provenance, we propose a [=Claim Summary=] RDF source, of which we will provide an example in the following subsection, an explained in section 6. This [=claim summary=] will be offered to an [=activity log=] using an LDN+AS2 event notification.
 
 ### Claim Summary### {#claim-summary-format}
 
@@ -325,14 +325,29 @@ show:
 </pre>
 </div>
 
-### Offer
+### Announce
 
-To request adding a [=claim summary=] to an [=activity log=], the [=claim bot=] sends an LDN+AS2 message to the LDN Inbox of the [=activity log=] service. The content of such is similar to that of the offer send in 4.2.1, with the location of the [=claim summary=] replacing the <tt>object.id</tt> field.
+To announce a new [=claim summary=], the [=claim bot=] sends an <tt>Announce</tt> LDN+AS2 message to the LDN Inbox of the [=activity log=] service with the following properties:
 
-Example 9 provides an example of an offer LDN+AS2 message sent by the [=claim bot=] using [=claim summary=] of Example 8 published at <tt>https://mycontributions.info/service/m/summary/237123-21318.jsonld</tt>.
+- The `id` property should contain a new minted identifier for every toot message.
+- The `type` property is the fixed string <tt>Announce</tt>.
+- The `actor` property should contain information about the [=claim bot=]:
+	- As value of the <tt>id</tt> property, a public WebID profile URL of the [=claim bot=].
+	- As value of the <tt>name</tt> property, the name of the [=claim bot=].
+	- As value of the <tt>type</tt> property, the fixed string <tt>Service</tt>.
+- The `origin` property should contain information about [=claim bot=] software:
+	- As value of the <tt>id</tt> property, a public WebID profile URL of the [=claim bot=] software.
+	- As value of the <tt>name</tt> property, the name of the [=claim bot=] software.
+	- As value of the <tt>type</tt> property, the fixed string <tt>Service</tt>.
+- The `object` property should contain information [=claim summary=]:
+	- As value of the <tt>id</tt> property, the URL of the [=claim summary=].
+	- As value of the <tt>type</tt> property, the fixed string <tt>Document</tt>.
+- The `published` property should contain in ISO 8601 format the datetime of the original post message.
+
+Example 9 provides an example of an <tt>Announce</tt>  LDN+AS2 message sent by the [=claim bot=] using [=claim summary=] of Example 8 published at <tt>https://mycontributions.info/service/m/summary/237123-21318.jsonld</tt>.
 
 <div class="example">
-An <tt>Offer</tt> LDN+AS2 message send by the [=claim bot=] to the [=activity log=] service to request the addition of the [=claim summary=] of Example 8 at <tt>https://mycontributions.info/service/m/summary/237123-21318.jsonld</tt> to the log.
+An <tt>announce</tt> LDN+AS2 message send by the [=claim bot=] to the [=activity log=] service to request the addition of the [=claim summary=] of Example 8 at <tt>https://mycontributions.info/service/m/summary/237123-21318.jsonld</tt> to the log.
 
 <pre class=include-code>
 path: examples/example9.jsonld
@@ -341,11 +356,14 @@ show:
 </pre>
 </div>
 
+Process Flow {#process-flow}
+============================
+
 Claim Summary {#claim-summary}
-===============================
+==============================
 
 Trust {#trust}
-===============================
+==============
 
 TDB
 
