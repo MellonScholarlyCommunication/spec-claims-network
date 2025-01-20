@@ -3,7 +3,7 @@
     "id" : "urn:uuid:80965c07-59b4-429c-bdf9-50932284425c",
     "type" : "Claim",
     "about" : {
-       "https://mycontributions.info/service/x/result/12712-128219.jsonld" : {
+       "https://summary.surf.nl/result/12712-128219.jsonld" : {
           "id" : "https://parliament.nl/questions/2025-21-121291",
           "type" : "http://purl.org/net/xbiblio/csl#post-weblog",
           "author" : {
@@ -28,7 +28,7 @@
     "mainEntity" : "https://parliament.nl/questions/2025-21-121291",
     "sdDatePublished" : "2025-02-02T06:45:54.000Z",
     "sdPublisher" : {
-       "id" : "https://mycontributions.info/service/m/profile/card#me",
+       "id" : "https://bots.surf.nl/profile/card#me",
        "name" : "Mastodon Bot",
        "type" : "Service"
     }

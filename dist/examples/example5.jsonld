@@ -4,9 +4,9 @@
     "type": "Reject",
     "published": "2025-02-02T06:47:13.000Z",
     "actor": {
-        "id": "https://mycontributions.info/service/x/profile/card#me",
+        "id": "https://summary.surf.nl/profile/card#me",
         "name": "Zotero Service Provider",
-        "inbox": "http://mycontributions.info/service/x/inbox/",
+        "inbox": "https://summary.surf.nl/inbox/",
         "type": "Service"
     },
     "context": "https://parliament.nl/questions/2025-21-121291",
@@ -16,9 +16,9 @@
         "type": "Offer",
         "published": "2025-02-02T06:46:01.000Z",
         "actor": {
-          "id": "http://mycontributions.info/service/m/profile/card#me",
+          "id": "https://bots.surf.nl/profile/card#me",
           "name": "Mastodon Bot",
-          "inbox": "http://mycontributions.info/service/m/inbox/",
+          "inbox": "https://bots.surf.nl/inbox/",
           "type": "Service"
         },
         "object": {

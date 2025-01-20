@@ -3,9 +3,9 @@
     "type": "Offer",
     "published": "2025-02-02T06:46:01.000Z",
     "actor": {
-      "id": "http://mycontributions.info/service/m/profile/card#me",
+      "id": "https://bots.surf.nl/profile/card#me",
       "name": "Mastodon Bot",
-      "inbox": "http://mycontributions.info/service/m/inbox/",
+      "inbox": "https://bots.surf.nl/inbox/",
       "type": "Service"
     },
     "object": {
