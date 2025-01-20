@@ -72,6 +72,9 @@ The following terms are used in this specification:
 : <dfn export>Claims service</dfn>
 :: A service node that collects claims made by a researcher and provides an public accessible overview activities and contributions of a researcher.
 
+: <dfn export>Claim summary</dfn>
+:: An RDF source in the JSON-LD format containing a summary of a [=claim=] including provenance information about the [=claim=].
+
 : <dfn export>Data Node</dfn>
 :: A data node is a network node that hosts artifacts. Examples of data nodes are news agencies, institutional repositories, blogs, and governmental websites.
 
@@ -100,16 +103,16 @@ In a [=claims network=] automated agents, such as the [=claims bot=], operate on
 
 Depending on the type of sender an receiver different types of messages that are specified below. 
 
-## Academic social network service to claimbot ## {#pattern-social-claimbot}
+## Academic social network service to claim bot ## {#pattern-social-claim-bot}
 
-The **academic social network service to claimbot** pattern is used by the [=academic social networking service=] to forward [=claims=] to a [=claims bot=]. Example 1 provides an example of such a [=claim=] made by the researcher Alice on a Mastodon instance hosted at <tt>https://social.edu.nl</tt>.
+The **academic social network service to claim bot** pattern is used by the [=academic social networking service=] to forward [=claims=] to a [=claims bot=]. Example 1 provides an example of such a [=claim=] made by the researcher Alice on a Mastodon instance hosted at <tt>https://social.edu.nl</tt>.
 
 <div class="example">
-Alice creates a toot message on <tt>social.edu.nl</tt> claiming her contribution <tt>https://parlaiment.nl/questions/2025-21-121291</tt>.
+Alice creates a toot message on <tt>social.edu.nl</tt> claiming her contribution <tt>https://parliament.nl/questions/2025-21-121291</tt>.
 
 <pre>
 I just submitted my first question to the Dutch parliament! 
-https://parlaiment.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl 
+https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl 
 </pre>
 
 We assume the [=claim bot=] has the Mastodon account <tt>@logbot@bots.surf.nl</tt>.
@@ -117,7 +120,7 @@ We assume the [=claim bot=] has the Mastodon account <tt>@logbot@bots.surf.nl</t
 
 We assume that the [=claims network=] includes the capability to transform (toot) messages that are forwarded to the [=claims bot=] into a LDN+AS2 message. An example implementation could involve a process operating on behalf of the [=claim bot=], which monitors the <tt>@logbot@bots.surf.nl</tt> account on <tt>bots.surf.nl</tt> using the Mastodon API and generates LDN+AS2 messages for each incoming toot directed at the [=claim bot=].
 
-### Announce ### {#pattern-social-claimbot-announce}
+### Announce ### {#pattern-social-claim-bot-announce}
 
 An [=academic social networking service=] should trigger a [=claim bot=] by sending an LDN+AS2 message to the [=Inbox=] of the [=claim bot=] with the following properties:
 
@@ -152,11 +155,11 @@ show:
 </pre>
 </div>
 
-## Claimbot to summarizer service ## {#pattern-claimbot-summarizer}
+## Claim bot to summarizer service ## {#pattern-claim-bot-summarizer}
 
-The **claimbot to summarizer service** pattern is used by a [=claim bot=] to request the generation of descriptive metadata for a [=claim=] at one or more [=summarizer services=]. Example 1, contains an example of such a [=claim=]: <tt>https://parlaiment.nl/questions/2025-21-121291</tt>. A   [=summarizer service=] can have many types of implementations such as [Zotero Translation Server](https://github.com/zotero/translation-server), web archives, [Crossref](https://crossref.org) clients, web crawlers, AI-driven text analyzers to name a few. What all implementation have in common is that they employ the LDN+AS2 messages using the Event Notifications protocol to communicate asynchronously with the [=claims bot=]. Asynchronous messaging enables the [=summarizer service=] to scale efficiently by executing data extraction algorithms through batch jobs, as opposed to real-time processing.
+The **claim bot to summarizer service** pattern is used by a [=claim bot=] to request the generation of descriptive metadata for a [=claim=] at one or more [=summarizer services=]. Example 1, contains an example of such a [=claim=]: <tt>https://parliament.nl/questions/2025-21-121291</tt>. A   [=summarizer service=] can have many types of implementations such as [Zotero Translation Server](https://github.com/zotero/translation-server), web archives, [Crossref](https://crossref.org) clients, web crawlers, AI-driven text analyzers to name a few. What all implementation have in common is that they employ the LDN+AS2 messages using the Event Notifications protocol to communicate asynchronously with the [=claims bot=]. Asynchronous messaging enables the [=summarizer service=] to scale efficiently by executing data extraction algorithms through batch jobs, as opposed to real-time processing.
 
-### Offer ### {#pattern-claimbot-summarizer-offer}
+### Offer ### {#pattern-claim-bot-summarizer-offer}
 
 To request a summary for a [=claim=] an LDN2+AS2 message should be send to the [=Inbox=] of a [=summarizer service=] with the following properties:
 
@@ -184,7 +187,7 @@ show:
 </pre>
 </div>
 
-## Summarizer to claimbot service## {#pattern-summarizer-claimbot}
+## Summarizer to claim bot service## {#pattern-summarizer-claim-bot}
 
 The [=summarizer service=] has the four possible responses to respond to an LDN+AS2 message received in the [=Inbox=] of the service:
 
@@ -289,9 +292,57 @@ show:
 
 [=Service Result=] summarization results can be serialized using many formats. Within a [=claims network=] it is essential for network partners to reach a common agreement on the expected output format. Examples of potential formats include, but are not limited to, [CSL JSON](https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html), [schema.org](https://schema.org) and [Bibo](https://www.dublincore.org/specifications/bibo/bibo/bibo.rdf.xml).
 
-## Claim bot to Academic social network service## {#pattern-claimbot-social}
+Example 7 provides an example schema.org summarization service result <tt>https://mycontributions.info/service/x/result/12712-128219.jsonld</tt> of Example 6.
 
-TDB
+<div class="example">
+A schema.org summarization service result for Example 6 made available as the Web resource <tt>https://mycontributions.info/service/x/result/12712-128219.jsonld</tt>.
+
+<pre class=include-code>
+path: examples/example7.jsonld
+highlight: json
+show: 
+</pre>
+</div>
+
+## Claim bot to the activity log service ## {#pattern-activity-log}
+
+The **claim bot to the activity log service** pattern is used by a [=claim bot=] to update an [=activity log=] about a summary that was made for a [=claim=]. Example 1, contains an example of such a claim: https://parliament.nl/questions/2025-21-121291 . Example 7, provides an example of a summary that was generated for that [=claim=]. To publish the summary in an application-neutral format while including its provenance, we propose a [=Claim Summary=] RDF source, of which we will provide an example in the following subsection, an explained in section 5. This [=claim summary=] will be offered to an [=activity log=] using an LDN+AS2 event notification.
+
+### Claim Summary### {#claim-summary-format}
+
+A [=claim summary=] is a JSON-LD serialization of a [=claim summary=] including provenance information about the source of this claim. The <tt>about</tt> section of the [=claim summary=] contains the RDF version of the claim using the [Schema.org](https://schema.org) vocabulary. The <tt>creator</tt> and <tt>isBasedOn</tt> sections provides information the account on the [=academic social networking service=] that made the claim. The <tt>mainEntity</tt> provides the URL of the [=claim=]. And, the <tt>sdPublisher</tt> and <tt>sdDatePublished</tt> provides information about the [=claim bot=] service that was responsible for collecting metadata about the claim.
+
+The [=claim summary=] should be published by the [=claim bot=] as a publicly available Web resource. Example 8 provides an example of such a [=claim summary=] based on the [=claim=] of Example 1 and the generated summary of Example 7. We assume this [=claim summary=] is available at <tt>https://mycontributions.info/service/m/summary/237123-21318.jsonld</tt>.
+
+<div class="example">
+
+An example of a [=claim summary=] created for the [=claim=] of Example 1 and the generated metadata summary of Example 7. This [=claim summary=] will be published by the [=claim bot=] at URL <tt>https://mycontributions.info/service/m/summary/237123-21318.jsonld</tt>.
+
+<pre class=include-code>
+path: examples/claim-summary.jsonld
+highlight: json
+show: 
+</pre>
+</div>
+
+### Offer
+
+To request adding a [=claim summary=] to an [=activity log=], the [=claim bot=] sends an LDN+AS2 message to the LDN Inbox of the [=activity log=] service. The content of such is similar to that of the offer send in 4.2.1, with the location of the [=claim summary=] replacing the <tt>object.id</tt> field.
+
+Example 9 provides an example of an offer LDN+AS2 message sent by the [=claim bot=] using [=claim summary=] of Example 8 published at <tt>https://mycontributions.info/service/m/summary/237123-21318.jsonld</tt>.
+
+<div class="example">
+An <tt>Offer</tt> LDN+AS2 message send by the [=claim bot=] to the [=activity log=] service to request the addition of the [=claim summary=] of Example 8 at <tt>https://mycontributions.info/service/m/summary/237123-21318.jsonld</tt> to the log.
+
+<pre class=include-code>
+path: examples/example9.jsonld
+highlight: json
+show: 
+</pre>
+</div>
+
+Claim Summary {#claim-summary}
+===============================
 
 Trust {#trust}
 ===============================
