@@ -30,7 +30,7 @@ The processing flow in the claims network is listed below:
 - [4] The [=claim bot=] reads the claimed <tt>URL-F</tt> from the incoming toot message and uses one or more [=summarizer services=] in the network to collect descriptive metadata for this URL.
 - [5] The [=summarizer service=], on request, generates a metadata summary for <tt>URL-F</tt>.
 - [6] When a summary is available, the [=summarizer service=] updates the [=claim bot=] about the metadata summary.
-- [7] The [=claim bot]= uses the summary to update a public [=activity log=] with Carol's contributions. This activity log can be used by a national [=claims service=] (e.g. a CRIS system) to update the scholarly record for Alice.
+- [7] The [=claim bot=] uses the summary to update a public [=activity log=] with Carol's contributions. This activity log can be used by a national [=claims service=] (e.g. a CRIS system) to update the scholarly record for Alice.
 
 Functional and non-functional requirements {#functional}
 ========================================================
@@ -46,10 +46,12 @@ A claims network should have the following functional requirements:
 - **Selection and filtering** : The network should provide a selection and filtering mechanism for claims by actors that are part of a particular research community. Research is a global enterprise, a claim bot may only provide services for researchers belonging to a national research community, or withing a discipline from that community.
 - **Version history** : The network should provide a version history of all claims that are added to the claims service.
 
+Non-functional requirements of a decentralized claims network includes: **scalability ** handle processing of researcher [=claims=] on a national level, **performance levels** to process and update claims service pages in near-real time, **resilience** against network outages, and adherence to **interoperability affordances** using open standards and protocols.
+
 Terminology {#terminology}
 ==========================
 
-The following terms are used in this specification:
+To discuss the claims network, the following terms are used in this specification:
 
 : <dfn export>Academic social networking service</dfn>
 :: A social network platform such as Mastodon that is used in an academic setting that is used by researchers to publish claims about a contribution to the scholarly record of the researcher.
@@ -95,6 +97,18 @@ The following terms are used in this specification:
 
 : <dfn export>Verification Service</dfn>
 :: A verification service is a node in the network that provides that verifies the identities of used by researchers in the [=claims network=].
+
+General Process Flow {#general-process-flow}
+============================
+
+A [=claims network=] consists of multiple actors exchanging information through a combination of application-specific messages (e.g., Mastodon API messages, if Mastodon serves as the implementation for the [=academic social networking service=]) and application-neutral claims network messages. The application-neutral messaging format follows the [Event Notifications in Value-Adding Networks](https://www.eventnotifications.net/) messaging patterns, which will be explained in the next section.
+
+The processing workflow in a [=claim network=] is depicted in Figure 2 and is explained below.
+
+<img alt="Overview of the network participants"
+     width="800"
+     src="images/claims_network.svg">
+*Figure 2: Message exchanges in a claims network*
 
 Network communication patterns {#network-communication-patterns}
 ===============================
@@ -356,14 +370,18 @@ show:
 </pre>
 </div>
 
-Process Flow {#process-flow}
-============================
-
 Claim Summary {#claim-summary}
 ==============================
 
+TDB
+
 Trust {#trust}
 ==============
+
+TDB
+
+Process Flow with Trust {#trust-process-flow}
+============================
 
 TDB
 

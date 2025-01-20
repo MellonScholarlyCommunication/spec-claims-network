@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version ac5ea272d, updated Fri Dec 6 15:45:15 2024 -0800" name="generator">
   <link href="_ORCHESTRATOR_CURRENT_BUILD_FULL_LINK_" rel="canonical">
-  <meta content="aeaef58a7a7e767688eeb813af89581511ff175b" name="revision">
+  <meta content="8b99ea268495ad53883773ebc1ee4781ad5a078e" name="revision">
   <meta content="dark light" name="color-scheme">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
@@ -2204,36 +2204,37 @@ Parts of this work may be from another specification document.  If so, those par
     <li><a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
     <li><a href="#functional"><span class="secno">2</span> <span class="content">Functional and non-functional requirements</span></a>
     <li><a href="#terminology"><span class="secno">3</span> <span class="content">Terminology</span></a>
+    <li><a href="#general-process-flow"><span class="secno">4</span> <span class="content">General Process Flow</span></a>
     <li>
-     <a href="#network-communication-patterns"><span class="secno">4</span> <span class="content">Network communication patterns</span></a>
+     <a href="#network-communication-patterns"><span class="secno">5</span> <span class="content">Network communication patterns</span></a>
      <ol class="toc">
       <li>
-       <a href="#pattern-social-claim-bot"><span class="secno">4.1</span> <span class="content">Academic social network service to claim bot</span></a>
+       <a href="#pattern-social-claim-bot"><span class="secno">5.1</span> <span class="content">Academic social network service to claim bot</span></a>
        <ol class="toc">
-        <li><a href="#pattern-social-claim-bot-announce"><span class="secno">4.1.1</span> <span class="content">Announce</span></a>
+        <li><a href="#pattern-social-claim-bot-announce"><span class="secno">5.1.1</span> <span class="content">Announce</span></a>
        </ol>
       <li>
-       <a href="#pattern-claim-bot-summarizer"><span class="secno">4.2</span> <span class="content">Claim bot to summarizer service</span></a>
+       <a href="#pattern-claim-bot-summarizer"><span class="secno">5.2</span> <span class="content">Claim bot to summarizer service</span></a>
        <ol class="toc">
-        <li><a href="#pattern-claim-bot-summarizer-offer"><span class="secno">4.2.1</span> <span class="content">Offer</span></a>
+        <li><a href="#pattern-claim-bot-summarizer-offer"><span class="secno">5.2.1</span> <span class="content">Offer</span></a>
        </ol>
       <li>
-       <a href="#pattern-summarizer-claim-bot"><span class="secno">4.3</span> <span class="content">Summarizer to claim bot service</span></a>
+       <a href="#pattern-summarizer-claim-bot"><span class="secno">5.3</span> <span class="content">Summarizer to claim bot service</span></a>
        <ol class="toc">
-        <li><a href="#accept"><span class="secno">4.3.1</span> <span class="content">Accept</span></a>
-        <li><a href="#reject"><span class="secno">4.3.2</span> <span class="content">Reject</span></a>
-        <li><a href="#announce"><span class="secno">4.3.3</span> <span class="content">Announce</span></a>
+        <li><a href="#accept"><span class="secno">5.3.1</span> <span class="content">Accept</span></a>
+        <li><a href="#reject"><span class="secno">5.3.2</span> <span class="content">Reject</span></a>
+        <li><a href="#announce"><span class="secno">5.3.3</span> <span class="content">Announce</span></a>
        </ol>
       <li>
-       <a href="#pattern-activity-log"><span class="secno">4.4</span> <span class="content">Claim bot to the activity log service</span></a>
+       <a href="#pattern-activity-log"><span class="secno">5.4</span> <span class="content">Claim bot to the activity log service</span></a>
        <ol class="toc">
-        <li><a href="#claim-summary-format"><span class="secno">4.4.1</span> <span class="content">Claim Summary</span></a>
-        <li><a href="#announce①"><span class="secno">4.4.2</span> <span class="content">Announce</span></a>
+        <li><a href="#claim-summary-format"><span class="secno">5.4.1</span> <span class="content">Claim Summary</span></a>
+        <li><a href="#announce①"><span class="secno">5.4.2</span> <span class="content">Announce</span></a>
        </ol>
      </ol>
-    <li><a href="#process-flow"><span class="secno">5</span> <span class="content">Process Flow</span></a>
     <li><a href="#claim-summary①"><span class="secno">6</span> <span class="content">Claim Summary</span></a>
     <li><a href="#trust"><span class="secno">7</span> <span class="content">Trust</span></a>
+    <li><a href="#trust-process-flow"><span class="secno">8</span> <span class="content">Process Flow with Trust</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -2315,15 +2316,16 @@ Parts of this work may be from another specification document.  If so, those par
     <li data-md>
      <p><strong>Version history</strong> : The network should provide a version history of all claims that are added to the claims service.</p>
    </ul>
+   <p>Non-functional requirements of a decentralized claims network includes: *<em>scalability *</em> handle processing of researcher <a data-link-type="dfn" href="#claim" id="ref-for-claim">claims</a> on a national level, <strong>performance levels</strong> to process and update claims service pages in near-real time, <strong>resilience</strong> against network outages, and adherence to <strong>interoperability affordances</strong> using open standards and protocols.</p>
    <h2 class="heading settled" data-level="3" id="terminology"><span class="secno">3. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
-   <p>The following terms are used in this specification:</p>
+   <p>To discuss the claims network, the following terms are used in this specification:</p>
    <dl>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="academic-social-networking-service">Academic social networking service</dfn>
     <dd data-md>
      <p>A social network platform such as Mastodon that is used in an academic setting that is used by researchers to publish claims about a contribution to the scholarly record of the researcher.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="activity-log">Activity Log</dfn>
     <dd data-md>
-     <p>A public machine-readable Web resource that contains descriptive metadata about <a data-link-type="dfn" href="#claim" id="ref-for-claim">claims</a> created by a researcher combined with provenance information about the <a data-link-type="dfn" href="#claim" id="ref-for-claim①">claim</a> itself.</p>
+     <p>A public machine-readable Web resource that contains descriptive metadata about <a data-link-type="dfn" href="#claim" id="ref-for-claim①">claims</a> created by a researcher combined with provenance information about the <a data-link-type="dfn" href="#claim" id="ref-for-claim②">claim</a> itself.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="artifact">Artifact</dfn>
     <dd data-md>
      <p>An artifact is a Web resource identified by a URL that serves at the main focus of interaction between the participants in the network. Examples of artifacts are traditional scholarly contributions but also interviews, news reports about a researcher or research project, teaching activities, and contributions to open-source development.</p>
@@ -2341,7 +2343,7 @@ Parts of this work may be from another specification document.  If so, those par
      <p>A service node that collects claims made by a researcher and provides an public accessible overview activities and contributions of a researcher.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="claim-summary">Claim summary</dfn>
     <dd data-md>
-     <p>An RDF source in the JSON-LD format containing a summary of a <a data-link-type="dfn" href="#claim" id="ref-for-claim②">claim</a> including provenance information about the <a data-link-type="dfn" href="#claim" id="ref-for-claim③">claim</a>.</p>
+     <p>An RDF source in the JSON-LD format containing a summary of a <a data-link-type="dfn" href="#claim" id="ref-for-claim③">claim</a> including provenance information about the <a data-link-type="dfn" href="#claim" id="ref-for-claim④">claim</a>.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="data-node">Data Node</dfn>
     <dd data-md>
      <p>A data node is a network node that hosts artifacts. Examples of data nodes are news agencies, institutional repositories, blogs, and governmental websites.</p>
@@ -2359,17 +2361,21 @@ Parts of this work may be from another specification document.  If so, those par
      <p>A service result is any outcome of providing a value-added service for an <a data-link-type="dfn" href="#artifact" id="ref-for-artifact">artifact</a>. An example of a service result is a JSON document that contains the descriptive metadata generated by a <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service④">summarizer service</a>.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="summarizer-service">Summarizer Service</dfn>
     <dd data-md>
-     <p>A summarizer service is a service node that, given <a data-link-type="dfn" href="#claim" id="ref-for-claim④">claim</a>, generates descriptive metadata about the <a data-link-type="dfn" href="#claim" id="ref-for-claim⑤">claim</a>.</p>
+     <p>A summarizer service is a service node that, given <a data-link-type="dfn" href="#claim" id="ref-for-claim⑤">claim</a>, generates descriptive metadata about the <a data-link-type="dfn" href="#claim" id="ref-for-claim⑥">claim</a>.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="verification-service">Verification Service</dfn>
     <dd data-md>
      <p>A verification service is a node in the network that provides that verifies the identities of used by researchers in the <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network③">claims network</a>.</p>
    </dl>
-   <h2 class="heading settled" data-level="4" id="network-communication-patterns"><span class="secno">4. </span><span class="content">Network communication patterns</span><a class="self-link" href="#network-communication-patterns"></a></h2>
-   <p>In a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network④">claims network</a> automated agents, such as the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot④">claims bot</a>, operate on behalf of a researcher to update an <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log①">activity log</a> and <a data-link-type="dfn" href="#claims-service" id="ref-for-claims-service①">claims service</a> with descriptive metadata about <a data-link-type="dfn" href="#claim" id="ref-for-claim⑥">claims</a> made by the researcher on a (national) <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service①">academic social networking service</a>. The network nodes operate by sending LDN+AS2 between each other that follow the <a href="https://www.eventnotifications.net">Event Notifications in Value-Adding Networks</a> specification.</p>
+   <h2 class="heading settled" data-level="4" id="general-process-flow"><span class="secno">4. </span><span class="content">General Process Flow</span><a class="self-link" href="#general-process-flow"></a></h2>
+   <p>A <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network④">claims network</a> consists of multiple actors exchanging information through a combination of application-specific messages (e.g., Mastodon API messages, if Mastodon serves as the implementation for the <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service①">academic social networking service</a>) and application-neutral claims network messages. The application-neutral messaging format follows the <a href="https://www.eventnotifications.net/">Event Notifications in Value-Adding Networks</a> messaging patterns, which will be explained in the next section.</p>
+   <p>The processing workflow in a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network⑤">claim network</a> is depicted in Figure 2 and is explained below.</p>
+   <p><img alt="Overview of the network participants" src="images/claims_network.svg" width="800"> <em>Figure 2: Message exchanges in a claims network</em></p>
+   <h2 class="heading settled" data-level="5" id="network-communication-patterns"><span class="secno">5. </span><span class="content">Network communication patterns</span><a class="self-link" href="#network-communication-patterns"></a></h2>
+   <p>In a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network⑥">claims network</a> automated agents, such as the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot④">claims bot</a>, operate on behalf of a researcher to update an <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log①">activity log</a> and <a data-link-type="dfn" href="#claims-service" id="ref-for-claims-service①">claims service</a> with descriptive metadata about <a data-link-type="dfn" href="#claim" id="ref-for-claim⑦">claims</a> made by the researcher on a (national) <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service②">academic social networking service</a>. The network nodes operate by sending LDN+AS2 between each other that follow the <a href="https://www.eventnotifications.net">Event Notifications in Value-Adding Networks</a> specification.</p>
    <p>Depending on the type of sender an receiver different types of messages that are specified below.</p>
-   <h3 class="heading settled" data-level="4.1" id="pattern-social-claim-bot"><span class="secno">4.1. </span><span class="content">Academic social network service to claim bot</span><a class="self-link" href="#pattern-social-claim-bot"></a></h3>
+   <h3 class="heading settled" data-level="5.1" id="pattern-social-claim-bot"><span class="secno">5.1. </span><span class="content">Academic social network service to claim bot</span><a class="self-link" href="#pattern-social-claim-bot"></a></h3>
    <p>
-    The <strong>academic social network service to claim bot</strong> pattern is used by the <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service②">academic social networking service</a> to forward <a data-link-type="dfn" href="#claim" id="ref-for-claim⑦">claims</a> to a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑤">claims bot</a>. Example 1 provides an example of such a <a data-link-type="dfn" href="#claim" id="ref-for-claim⑧">claim</a> made by the researcher Alice on a Mastodon instance hosted at 
+    The <strong>academic social network service to claim bot</strong> pattern is used by the <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service③">academic social networking service</a> to forward <a data-link-type="dfn" href="#claim" id="ref-for-claim⑧">claims</a> to a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑤">claims bot</a>. Example 1 provides an example of such a <a data-link-type="dfn" href="#claim" id="ref-for-claim⑨">claim</a> made by the researcher Alice on a Mastodon instance hosted at 
     <tt>https://social.edu.nl</tt>
     .
    </p>
@@ -2389,14 +2395,14 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     </p>
    </div>
    <p>
-    We assume that the <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network⑤">claims network</a> includes the capability to transform (toot) messages that are forwarded to the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑦">claims bot</a> into a LDN+AS2 message. An example implementation could involve a process operating on behalf of the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑧">claim bot</a>, which monitors the 
+    We assume that the <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network⑦">claims network</a> includes the capability to transform (toot) messages that are forwarded to the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑦">claims bot</a> into a LDN+AS2 message. An example implementation could involve a process operating on behalf of the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑧">claim bot</a>, which monitors the 
     <tt>@logbot@bots.surf.nl</tt>
      account on 
     <tt>bots.surf.nl</tt>
      using the Mastodon API and generates LDN+AS2 messages for each incoming toot directed at the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑨">claim bot</a>.
    </p>
-   <h4 class="heading settled" data-level="4.1.1" id="pattern-social-claim-bot-announce"><span class="secno">4.1.1. </span><span class="content">Announce</span><a class="self-link" href="#pattern-social-claim-bot-announce"></a></h4>
-   <p>An <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service③">academic social networking service</a> should trigger a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①⓪">claim bot</a> by sending an LDN+AS2 message to the <a data-link-type="dfn" href="#inbox" id="ref-for-inbox">Inbox</a> of the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①①">claim bot</a> with the following properties:</p>
+   <h4 class="heading settled" data-level="5.1.1" id="pattern-social-claim-bot-announce"><span class="secno">5.1.1. </span><span class="content">Announce</span><a class="self-link" href="#pattern-social-claim-bot-announce"></a></h4>
+   <p>An <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service④">academic social networking service</a> should trigger a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①⓪">claim bot</a> by sending an LDN+AS2 message to the <a data-link-type="dfn" href="#inbox" id="ref-for-inbox">Inbox</a> of the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①①">claim bot</a> with the following properties:</p>
    <ul>
     <li data-md>
      <p>The <code>id</code> property should contain a new minted identifier for every toot message.</p>
@@ -2534,14 +2540,14 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <c- p>}</c->
 <c- p>}</c-></pre>
    </div>
-   <h3 class="heading settled" data-level="4.2" id="pattern-claim-bot-summarizer"><span class="secno">4.2. </span><span class="content">Claim bot to summarizer service</span><a class="self-link" href="#pattern-claim-bot-summarizer"></a></h3>
+   <h3 class="heading settled" data-level="5.2" id="pattern-claim-bot-summarizer"><span class="secno">5.2. </span><span class="content">Claim bot to summarizer service</span><a class="self-link" href="#pattern-claim-bot-summarizer"></a></h3>
    <p>
-    The <strong>claim bot to summarizer service</strong> pattern is used by a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①②">claim bot</a> to request the generation of descriptive metadata for a <a data-link-type="dfn" href="#claim" id="ref-for-claim⑨">claim</a> at one or more <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service⑤">summarizer services</a>. Example 1, contains an example of such a <a data-link-type="dfn" href="#claim" id="ref-for-claim①⓪">claim</a>: 
+    The <strong>claim bot to summarizer service</strong> pattern is used by a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①②">claim bot</a> to request the generation of descriptive metadata for a <a data-link-type="dfn" href="#claim" id="ref-for-claim①⓪">claim</a> at one or more <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service⑤">summarizer services</a>. Example 1, contains an example of such a <a data-link-type="dfn" href="#claim" id="ref-for-claim①①">claim</a>: 
     <tt>https://parliament.nl/questions/2025-21-121291</tt>
     . A <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service⑥">summarizer service</a> can have many types of implementations such as <a href="https://github.com/zotero/translation-server">Zotero Translation Server</a>, web archives, <a href="https://crossref.org">Crossref</a> clients, web crawlers, AI-driven text analyzers to name a few. What all implementation have in common is that they employ the LDN+AS2 messages using the Event Notifications protocol to communicate asynchronously with the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①③">claims bot</a>. Asynchronous messaging enables the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service⑦">summarizer service</a> to scale efficiently by executing data extraction algorithms through batch jobs, as opposed to real-time processing.
    </p>
-   <h4 class="heading settled" data-level="4.2.1" id="pattern-claim-bot-summarizer-offer"><span class="secno">4.2.1. </span><span class="content">Offer</span><a class="self-link" href="#pattern-claim-bot-summarizer-offer"></a></h4>
-   <p>To request a summary for a <a data-link-type="dfn" href="#claim" id="ref-for-claim①①">claim</a> an LDN2+AS2 message should be send to the <a data-link-type="dfn" href="#inbox" id="ref-for-inbox①">Inbox</a> of a <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service⑧">summarizer service</a> with the following properties:</p>
+   <h4 class="heading settled" data-level="5.2.1" id="pattern-claim-bot-summarizer-offer"><span class="secno">5.2.1. </span><span class="content">Offer</span><a class="self-link" href="#pattern-claim-bot-summarizer-offer"></a></h4>
+   <p>To request a summary for a <a data-link-type="dfn" href="#claim" id="ref-for-claim①②">claim</a> an LDN2+AS2 message should be send to the <a data-link-type="dfn" href="#inbox" id="ref-for-inbox①">Inbox</a> of a <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service⑧">summarizer service</a> with the following properties:</p>
    <ul>
     <li data-md>
      <p>The <code>id</code> property should contain a new minted identifier for every toot message.</p>
@@ -2582,13 +2588,13 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
        </p>
      </ul>
     <li data-md>
-     <p>The <code>object</code> property should contain information about the <a data-link-type="dfn" href="#claim" id="ref-for-claim①②">claim</a>:</p>
+     <p>The <code>object</code> property should contain information about the <a data-link-type="dfn" href="#claim" id="ref-for-claim①③">claim</a>:</p>
      <ul>
       <li data-md>
        <p>
         As value of the 
         <tt>id</tt>
-         property, the URL of the <a data-link-type="dfn" href="#claim" id="ref-for-claim①③">claim</a>.
+         property, the URL of the <a data-link-type="dfn" href="#claim" id="ref-for-claim①④">claim</a>.
        </p>
       <li data-md>
        <p>
@@ -2602,9 +2608,9 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <li data-md>
      <p>The <code>published</code> property should contain in ISO 8601 format the datetime of the original post message.</p>
    </ul>
-   <p>In Example 3, we illustrate the structure of an LDN+AS2 message that the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①⑤">claim bot</a> sends to the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service⑨">summarizer service</a> pertaining to the <a data-link-type="dfn" href="#claim" id="ref-for-claim①④">claim</a> of Example 1.</p>
+   <p>In Example 3, we illustrate the structure of an LDN+AS2 message that the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①⑤">claim bot</a> sends to the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service⑨">summarizer service</a> pertaining to the <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑤">claim</a> of Example 1.</p>
    <div class="example" id="example-e3d58f3d">
-    <a class="self-link" href="#example-e3d58f3d"></a> A generated LDN+AS2 message for the <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑤">claim</a> 
+    <a class="self-link" href="#example-e3d58f3d"></a> A generated LDN+AS2 message for the <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑥">claim</a> 
     <tt>https://parlaiment.nl/questions/2025-21-121291</tt>
      in Example 1. 
 <pre class="include-code highlight"><c- p>{</c->
@@ -2623,7 +2629,7 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <c- p>}</c->
 <c- p>}</c-></pre>
    </div>
-   <h3 class="heading settled" data-level="4.3" id="pattern-summarizer-claim-bot"><span class="secno">4.3. </span><span class="content">Summarizer to claim bot service</span><a class="self-link" href="#pattern-summarizer-claim-bot"></a></h3>
+   <h3 class="heading settled" data-level="5.3" id="pattern-summarizer-claim-bot"><span class="secno">5.3. </span><span class="content">Summarizer to claim bot service</span><a class="self-link" href="#pattern-summarizer-claim-bot"></a></h3>
    <p>The <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service①⓪">summarizer service</a> has the four possible responses to respond to an LDN+AS2 message received in the <a data-link-type="dfn" href="#inbox" id="ref-for-inbox③">Inbox</a> of the service:</p>
    <ul>
     <li data-md>
@@ -2642,21 +2648,21 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
      </p>
      <ul>
       <li data-md>
-       <p>[a] No attempt was made to summarize the <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑥">claim</a> due to technical, privacy or security reasons.</p>
+       <p>[a] No attempt was made to summarize the <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑦">claim</a> due to technical, privacy or security reasons.</p>
       <li data-md>
-       <p>[b] An attempt was made to summarize the <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑦">claim</a>, but it lead a processing failure.</p>
+       <p>[b] An attempt was made to summarize the <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑧">claim</a>, but it lead a processing failure.</p>
      </ul>
     <li data-md>
      <p>
-      [4] If summarization of <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑧">claim</a> has a (possible empty) result, then an 
+      [4] If summarization of <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑨">claim</a> has a (possible empty) result, then an 
       <tt>Announce</tt>
        LDN+AS2 message should be send to the <a data-link-type="dfn" href="#inbox" id="ref-for-inbox⑥">Inbox</a> of the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①⑧">claim bot</a>.
      </p>
    </ul>
    <p>For each of the four scenarios we will present below the requirements for the LDN+AS2 messages.</p>
-   <h4 class="heading settled" data-level="4.3.1" id="accept"><span class="secno">4.3.1. </span><span class="content">Accept</span><a class="self-link" href="#accept"></a></h4>
+   <h4 class="heading settled" data-level="5.3.1" id="accept"><span class="secno">5.3.1. </span><span class="content">Accept</span><a class="self-link" href="#accept"></a></h4>
    <p>
-    To (tentatively) accept an offer for the summarization of a <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑨">claim</a>, the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service①③">summarizer service</a> can optionally send an 
+    To (tentatively) accept an offer for the summarization of a <a data-link-type="dfn" href="#claim" id="ref-for-claim②⓪">claim</a>, the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service①③">summarizer service</a> can optionally send an 
     <tt>Accept</tt>
      LDN+AS2 message to the <a data-link-type="dfn" href="#inbox" id="ref-for-inbox⑦">Inbox</a> of the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①⑨">claim bot</a> with the following properties:
    </p>
@@ -2700,7 +2706,7 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
        </p>
      </ul>
     <li data-md>
-     <p>The <code>context</code> property should contain the URL of the <a data-link-type="dfn" href="#claim" id="ref-for-claim②⓪">claim</a>.</p>
+     <p>The <code>context</code> property should contain the URL of the <a data-link-type="dfn" href="#claim" id="ref-for-claim②①">claim</a>.</p>
     <li data-md>
      <p>
       The <code>inReplyTo</code> property should contain the identifier of the 
@@ -2760,9 +2766,9 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <c- p>}</c->
 <c- p>}</c-></pre>
    </div>
-   <h4 class="heading settled" data-level="4.3.2" id="reject"><span class="secno">4.3.2. </span><span class="content">Reject</span><a class="self-link" href="#reject"></a></h4>
+   <h4 class="heading settled" data-level="5.3.2" id="reject"><span class="secno">5.3.2. </span><span class="content">Reject</span><a class="self-link" href="#reject"></a></h4>
    <p>
-    To reject an offer for the summarization of a <a data-link-type="dfn" href="#claim" id="ref-for-claim②①">claim</a>, the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service②⓪">summarizer service</a> should send a 
+    To reject an offer for the summarization of a <a data-link-type="dfn" href="#claim" id="ref-for-claim②②">claim</a>, the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service②⓪">summarizer service</a> should send a 
     <tt>Reject</tt>
      LDN+AS2 message to the <a data-link-type="dfn" href="#inbox" id="ref-for-inbox⑨">Inbox</a> of the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot②④">claim bot</a> with the following properties:
    </p>
@@ -2806,7 +2812,7 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
        </p>
      </ul>
     <li data-md>
-     <p>The <code>context</code> property should contain the URL of the <a data-link-type="dfn" href="#claim" id="ref-for-claim②②">claim</a>.</p>
+     <p>The <code>context</code> property should contain the URL of the <a data-link-type="dfn" href="#claim" id="ref-for-claim②③">claim</a>.</p>
     <li data-md>
      <p>
       The <code>inReplyTo</code> property should contain the identifier of the 
@@ -2873,9 +2879,9 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <c- f>"summary"</c-><c- p>:</c-> <c- u>"Page does not exist"</c->
 <c- p>}</c-></pre>
    </div>
-   <h4 class="heading settled" data-level="4.3.3" id="announce"><span class="secno">4.3.3. </span><span class="content">Announce</span><a class="self-link" href="#announce"></a></h4>
+   <h4 class="heading settled" data-level="5.3.3" id="announce"><span class="secno">5.3.3. </span><span class="content">Announce</span><a class="self-link" href="#announce"></a></h4>
    <p>
-    To announce the result for the summarization of a <a data-link-type="dfn" href="#claim" id="ref-for-claim②③">claim</a>, the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service②⑦">summarizer service</a> should send an 
+    To announce the result for the summarization of a <a data-link-type="dfn" href="#claim" id="ref-for-claim②④">claim</a>, the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service②⑦">summarizer service</a> should send an 
     <tt>Announce</tt>
      LDN+AS2 message to the <a data-link-type="dfn" href="#inbox" id="ref-for-inbox①①">Inbox</a> of the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot②⑨">claim bot</a> with the following properties:
    </p>
@@ -2919,7 +2925,7 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
        </p>
      </ul>
     <li data-md>
-     <p>The <code>context</code> property should contain the URL of the <a data-link-type="dfn" href="#claim" id="ref-for-claim②④">claim</a>.</p>
+     <p>The <code>context</code> property should contain the URL of the <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑤">claim</a>.</p>
     <li data-md>
      <p>
       The <code>inReplyTo</code> property should contain the identifier of the 
@@ -2927,7 +2933,7 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
        that was sent by the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot③⓪">claim bot</a> to the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service③⓪">summarizer service</a>.
      </p>
     <li data-md>
-     <p>The <code>object</code> property should contain information where to find the <a data-link-type="dfn" href="#service-result" id="ref-for-service-result">Service Result</a> document that contains the extracted metadata for a <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑤">claim</a>:</p>
+     <p>The <code>object</code> property should contain information where to find the <a data-link-type="dfn" href="#service-result" id="ref-for-service-result">Service Result</a> document that contains the extracted metadata for a <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑥">claim</a>:</p>
      <ul>
       <li data-md>
        <p>
@@ -2947,7 +2953,7 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <li data-md>
      <p>The <code>published</code> property should contain in ISO 8601 format the datetime of the original post message.</p>
    </ul>
-   <p>In Example 6, we illustrate the structure of an LDN+AS2 message that the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service③①">summarizer service</a> can send to the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot③①">claim bot</a> to announce the summary for the <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑥">claim</a> of Example 3.</p>
+   <p>In Example 6, we illustrate the structure of an LDN+AS2 message that the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service③①">summarizer service</a> can send to the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot③①">claim bot</a> to announce the summary for the <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑦">claim</a> of Example 3.</p>
    <div class="example" id="example-0aa199d7">
     <a class="self-link" href="#example-0aa199d7"></a> 
     <p>
@@ -2976,7 +2982,7 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <c- p>}</c->
 <c- p>}</c-></pre>
    </div>
-   <p><a data-link-type="dfn" href="#service-result" id="ref-for-service-result①">Service Result</a> summarization results can be serialized using many formats. Within a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network⑥">claims network</a> it is essential for network partners to reach a common agreement on the expected output format. Examples of potential formats include, but are not limited to, <a href="https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html">CSL JSON</a>, <a href="https://schema.org">schema.org</a> and <a href="https://www.dublincore.org/specifications/bibo/bibo/bibo.rdf.xml">Bibo</a>.</p>
+   <p><a data-link-type="dfn" href="#service-result" id="ref-for-service-result①">Service Result</a> summarization results can be serialized using many formats. Within a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network⑧">claims network</a> it is essential for network partners to reach a common agreement on the expected output format. Examples of potential formats include, but are not limited to, <a href="https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html">CSL JSON</a>, <a href="https://schema.org">schema.org</a> and <a href="https://www.dublincore.org/specifications/bibo/bibo/bibo.rdf.xml">Bibo</a>.</p>
    <p>
     Example 7 provides an example schema.org summarization service result 
     <tt>https://mycontributions.info/service/x/result/12712-128219.jsonld</tt>
@@ -3001,9 +3007,9 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
   <c- f>"title"</c-> <c- p>:</c-> <c- u>"Violating the ban on killing eels with a salt bath."</c->
 <c- p>}</c-></pre>
    </div>
-   <h3 class="heading settled" data-level="4.4" id="pattern-activity-log"><span class="secno">4.4. </span><span class="content">Claim bot to the activity log service</span><a class="self-link" href="#pattern-activity-log"></a></h3>
-   <p>The <strong>claim bot to the activity log service</strong> pattern is used by a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot③③">claim bot</a> to update an <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log②">activity log</a> about a summary that was made for a <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑦">claim</a>. Example 1, contains an example of such a claim: https://parliament.nl/questions/2025-21-121291 . Example 7, provides an example of a summary that was generated for that <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑧">claim</a>. To publish the summary in an application-neutral format while including its provenance, we propose a <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary">Claim Summary</a> RDF source, of which we will provide an example in the following subsection, an explained in section 6. This <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary①">claim summary</a> will be offered to an <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log③">activity log</a> using an LDN+AS2 event notification.</p>
-   <h4 class="heading settled" data-level="4.4.1" id="claim-summary-format"><span class="secno">4.4.1. </span><span class="content">Claim Summary</span><a class="self-link" href="#claim-summary-format"></a></h4>
+   <h3 class="heading settled" data-level="5.4" id="pattern-activity-log"><span class="secno">5.4. </span><span class="content">Claim bot to the activity log service</span><a class="self-link" href="#pattern-activity-log"></a></h3>
+   <p>The <strong>claim bot to the activity log service</strong> pattern is used by a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot③③">claim bot</a> to update an <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log②">activity log</a> about a summary that was made for a <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑧">claim</a>. Example 1, contains an example of such a claim: https://parliament.nl/questions/2025-21-121291 . Example 7, provides an example of a summary that was generated for that <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑨">claim</a>. To publish the summary in an application-neutral format while including its provenance, we propose a <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary">Claim Summary</a> RDF source, of which we will provide an example in the following subsection, an explained in section 6. This <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary①">claim summary</a> will be offered to an <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log③">activity log</a> using an LDN+AS2 event notification.</p>
+   <h4 class="heading settled" data-level="5.4.1" id="claim-summary-format"><span class="secno">5.4.1. </span><span class="content">Claim Summary</span><a class="self-link" href="#claim-summary-format"></a></h4>
    <p>
     A <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary②">claim summary</a> is a JSON-LD serialization of a <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary③">claim summary</a> including provenance information about the source of this claim. The 
     <tt>about</tt>
@@ -3011,23 +3017,23 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <tt>creator</tt>
      and 
     <tt>isBasedOn</tt>
-     sections provides information the account on the <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service④">academic social networking service</a> that made the claim. The 
+     sections provides information the account on the <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service⑤">academic social networking service</a> that made the claim. The 
     <tt>mainEntity</tt>
-     provides the URL of the <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑨">claim</a>. And, the 
+     provides the URL of the <a data-link-type="dfn" href="#claim" id="ref-for-claim③⓪">claim</a>. And, the 
     <tt>sdPublisher</tt>
      and 
     <tt>sdDatePublished</tt>
      provides information about the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot③④">claim bot</a> service that was responsible for collecting metadata about the claim.
    </p>
    <p>
-    The <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary⑤">claim summary</a> should be published by the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot③⑤">claim bot</a> as a publicly available Web resource. Example 8 provides an example of such a <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary⑥">claim summary</a> based on the <a data-link-type="dfn" href="#claim" id="ref-for-claim③⓪">claim</a> of Example 1 and the generated summary of Example 7. We assume this <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary⑦">claim summary</a> is available at 
+    The <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary⑤">claim summary</a> should be published by the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot③⑤">claim bot</a> as a publicly available Web resource. Example 8 provides an example of such a <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary⑥">claim summary</a> based on the <a data-link-type="dfn" href="#claim" id="ref-for-claim③①">claim</a> of Example 1 and the generated summary of Example 7. We assume this <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary⑦">claim summary</a> is available at 
     <tt>https://mycontributions.info/service/m/summary/237123-21318.jsonld</tt>
     .
    </p>
    <div class="example" id="example-3330e85e">
     <a class="self-link" href="#example-3330e85e"></a> 
     <p>
-     An example of a <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary⑧">claim summary</a> created for the <a data-link-type="dfn" href="#claim" id="ref-for-claim③①">claim</a> of Example 1 and the generated metadata summary of Example 7. This <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary⑨">claim summary</a> will be published by the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot③⑥">claim bot</a> at URL 
+     An example of a <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary⑧">claim summary</a> created for the <a data-link-type="dfn" href="#claim" id="ref-for-claim③②">claim</a> of Example 1 and the generated metadata summary of Example 7. This <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary⑨">claim summary</a> will be published by the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot③⑥">claim bot</a> at URL 
      <tt>https://mycontributions.info/service/m/summary/237123-21318.jsonld</tt>
      .
     </p>
@@ -3067,7 +3073,7 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <c- p>}</c->
  <c- p>}</c-></pre>
    </div>
-   <h4 class="heading settled" data-level="4.4.2" id="announce①"><span class="secno">4.4.2. </span><span class="content">Announce</span><a class="self-link" href="#announce①"></a></h4>
+   <h4 class="heading settled" data-level="5.4.2" id="announce①"><span class="secno">5.4.2. </span><span class="content">Announce</span><a class="self-link" href="#announce①"></a></h4>
    <p>
     To announce a new <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary①⓪">claim summary</a>, the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot③⑦">claim bot</a> sends an 
     <tt>Announce</tt>
@@ -3185,9 +3191,11 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
   <c- p>}</c->
 <c- p>}</c-></pre>
    </div>
-   <h2 class="heading settled" data-level="5" id="process-flow"><span class="secno">5. </span><span class="content">Process Flow</span><a class="self-link" href="#process-flow"></a></h2>
    <h2 class="heading settled" data-level="6" id="claim-summary①"><span class="secno">6. </span><span class="content">Claim Summary</span><a class="self-link" href="#claim-summary①"></a></h2>
+   <p>TDB</p>
    <h2 class="heading settled" data-level="7" id="trust"><span class="secno">7. </span><span class="content">Trust</span><a class="self-link" href="#trust"></a></h2>
+   <p>TDB</p>
+   <h2 class="heading settled" data-level="8" id="trust-process-flow"><span class="secno">8. </span><span class="content">Process Flow with Trust</span><a class="self-link" href="#trust-process-flow"></a></h2>
    <p>TDB</p>
   </main>
   <div data-fill-with="conformance">
@@ -3568,20 +3576,20 @@ function parseHTML(markup) {
 "use strict";
 {
 let dfnPanelData = {
-"academic-social-networking-service": {"dfnID":"academic-social-networking-service","dfnText":"Academic social networking service","external":false,"refSections":[{"refs":[{"id":"ref-for-academic-social-networking-service"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460"}],"title":"4. Network communication patterns"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2461"}],"title":"4.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2462"}],"title":"4.1.1. Announce"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2463"}],"title":"4.4.1. Claim Summary"}],"url":"#academic-social-networking-service"},
-"activity-log": {"dfnID":"activity-log","dfnText":"Activity Log","external":false,"refSections":[{"refs":[{"id":"ref-for-activity-log"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-activity-log\u2460"}],"title":"4. Network communication patterns"},{"refs":[{"id":"ref-for-activity-log\u2461"},{"id":"ref-for-activity-log\u2462"}],"title":"4.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-activity-log\u2463"},{"id":"ref-for-activity-log\u2464"}],"title":"4.4.2. Announce"}],"url":"#activity-log"},
+"academic-social-networking-service": {"dfnID":"academic-social-networking-service","dfnText":"Academic social networking service","external":false,"refSections":[{"refs":[{"id":"ref-for-academic-social-networking-service"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460"}],"title":"4. General Process Flow"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2461"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2462"}],"title":"5.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2463"}],"title":"5.1.1. Announce"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2464"}],"title":"5.4.1. Claim Summary"}],"url":"#academic-social-networking-service"},
+"activity-log": {"dfnID":"activity-log","dfnText":"Activity Log","external":false,"refSections":[{"refs":[{"id":"ref-for-activity-log"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-activity-log\u2460"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-activity-log\u2461"},{"id":"ref-for-activity-log\u2462"}],"title":"5.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-activity-log\u2463"},{"id":"ref-for-activity-log\u2464"}],"title":"5.4.2. Announce"}],"url":"#activity-log"},
 "artifact": {"dfnID":"artifact","dfnText":"Artifact","external":false,"refSections":[{"refs":[{"id":"ref-for-artifact"}],"title":"3. Terminology"}],"url":"#artifact"},
-"claim": {"dfnID":"claim","dfnText":"Claim","external":false,"refSections":[{"refs":[{"id":"ref-for-claim"},{"id":"ref-for-claim\u2460"},{"id":"ref-for-claim\u2461"},{"id":"ref-for-claim\u2462"},{"id":"ref-for-claim\u2463"},{"id":"ref-for-claim\u2464"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-claim\u2465"}],"title":"4. Network communication patterns"},{"refs":[{"id":"ref-for-claim\u2466"},{"id":"ref-for-claim\u2467"}],"title":"4.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-claim\u2468"},{"id":"ref-for-claim\u2460\u24ea"}],"title":"4.2. Claim bot to summarizer service"},{"refs":[{"id":"ref-for-claim\u2460\u2460"},{"id":"ref-for-claim\u2460\u2461"},{"id":"ref-for-claim\u2460\u2462"},{"id":"ref-for-claim\u2460\u2463"},{"id":"ref-for-claim\u2460\u2464"}],"title":"4.2.1. Offer"},{"refs":[{"id":"ref-for-claim\u2460\u2465"},{"id":"ref-for-claim\u2460\u2466"},{"id":"ref-for-claim\u2460\u2467"}],"title":"4.3. Summarizer to claim bot service"},{"refs":[{"id":"ref-for-claim\u2460\u2468"},{"id":"ref-for-claim\u2461\u24ea"}],"title":"4.3.1. Accept"},{"refs":[{"id":"ref-for-claim\u2461\u2460"},{"id":"ref-for-claim\u2461\u2461"}],"title":"4.3.2. Reject"},{"refs":[{"id":"ref-for-claim\u2461\u2462"},{"id":"ref-for-claim\u2461\u2463"},{"id":"ref-for-claim\u2461\u2464"},{"id":"ref-for-claim\u2461\u2465"}],"title":"4.3.3. Announce"},{"refs":[{"id":"ref-for-claim\u2461\u2466"},{"id":"ref-for-claim\u2461\u2467"}],"title":"4.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-claim\u2461\u2468"},{"id":"ref-for-claim\u2462\u24ea"},{"id":"ref-for-claim\u2462\u2460"}],"title":"4.4.1. Claim Summary"}],"url":"#claim"},
-"claim-bot": {"dfnID":"claim-bot","dfnText":"Claim bot","external":false,"refSections":[{"refs":[{"id":"ref-for-claim-bot"},{"id":"ref-for-claim-bot\u2460"},{"id":"ref-for-claim-bot\u2461"},{"id":"ref-for-claim-bot\u2462"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claim-bot\u2463"}],"title":"4. Network communication patterns"},{"refs":[{"id":"ref-for-claim-bot\u2464"},{"id":"ref-for-claim-bot\u2465"},{"id":"ref-for-claim-bot\u2466"},{"id":"ref-for-claim-bot\u2467"},{"id":"ref-for-claim-bot\u2468"}],"title":"4.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-claim-bot\u2460\u24ea"},{"id":"ref-for-claim-bot\u2460\u2460"}],"title":"4.1.1. Announce"},{"refs":[{"id":"ref-for-claim-bot\u2460\u2461"},{"id":"ref-for-claim-bot\u2460\u2462"}],"title":"4.2. Claim bot to summarizer service"},{"refs":[{"id":"ref-for-claim-bot\u2460\u2463"},{"id":"ref-for-claim-bot\u2460\u2464"}],"title":"4.2.1. Offer"},{"refs":[{"id":"ref-for-claim-bot\u2460\u2465"},{"id":"ref-for-claim-bot\u2460\u2466"},{"id":"ref-for-claim-bot\u2460\u2467"}],"title":"4.3. Summarizer to claim bot service"},{"refs":[{"id":"ref-for-claim-bot\u2460\u2468"},{"id":"ref-for-claim-bot\u2461\u24ea"},{"id":"ref-for-claim-bot\u2461\u2460"},{"id":"ref-for-claim-bot\u2461\u2461"},{"id":"ref-for-claim-bot\u2461\u2462"}],"title":"4.3.1. Accept"},{"refs":[{"id":"ref-for-claim-bot\u2461\u2463"},{"id":"ref-for-claim-bot\u2461\u2464"},{"id":"ref-for-claim-bot\u2461\u2465"},{"id":"ref-for-claim-bot\u2461\u2466"},{"id":"ref-for-claim-bot\u2461\u2467"}],"title":"4.3.2. Reject"},{"refs":[{"id":"ref-for-claim-bot\u2461\u2468"},{"id":"ref-for-claim-bot\u2462\u24ea"},{"id":"ref-for-claim-bot\u2462\u2460"},{"id":"ref-for-claim-bot\u2462\u2461"}],"title":"4.3.3. Announce"},{"refs":[{"id":"ref-for-claim-bot\u2462\u2462"}],"title":"4.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-claim-bot\u2462\u2463"},{"id":"ref-for-claim-bot\u2462\u2464"},{"id":"ref-for-claim-bot\u2462\u2465"}],"title":"4.4.1. Claim Summary"},{"refs":[{"id":"ref-for-claim-bot\u2462\u2466"},{"id":"ref-for-claim-bot\u2462\u2467"},{"id":"ref-for-claim-bot\u2462\u2468"},{"id":"ref-for-claim-bot\u2463\u24ea"},{"id":"ref-for-claim-bot\u2463\u2460"},{"id":"ref-for-claim-bot\u2463\u2461"},{"id":"ref-for-claim-bot\u2463\u2462"},{"id":"ref-for-claim-bot\u2463\u2463"},{"id":"ref-for-claim-bot\u2463\u2464"}],"title":"4.4.2. Announce"}],"url":"#claim-bot"},
-"claim-summary": {"dfnID":"claim-summary","dfnText":"Claim summary","external":false,"refSections":[{"refs":[{"id":"ref-for-claim-summary"},{"id":"ref-for-claim-summary\u2460"}],"title":"4.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-claim-summary\u2461"},{"id":"ref-for-claim-summary\u2462"},{"id":"ref-for-claim-summary\u2463"},{"id":"ref-for-claim-summary\u2464"},{"id":"ref-for-claim-summary\u2465"},{"id":"ref-for-claim-summary\u2466"},{"id":"ref-for-claim-summary\u2467"},{"id":"ref-for-claim-summary\u2468"}],"title":"4.4.1. Claim Summary"},{"refs":[{"id":"ref-for-claim-summary\u2460\u24ea"},{"id":"ref-for-claim-summary\u2460\u2460"},{"id":"ref-for-claim-summary\u2460\u2461"},{"id":"ref-for-claim-summary\u2460\u2462"},{"id":"ref-for-claim-summary\u2460\u2463"}],"title":"4.4.2. Announce"}],"url":"#claim-summary"},
-"claims-network": {"dfnID":"claims-network","dfnText":"Claims network","external":false,"refSections":[{"refs":[{"id":"ref-for-claims-network"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claims-network\u2460"},{"id":"ref-for-claims-network\u2461"},{"id":"ref-for-claims-network\u2462"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-claims-network\u2463"}],"title":"4. Network communication patterns"},{"refs":[{"id":"ref-for-claims-network\u2464"}],"title":"4.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-claims-network\u2465"}],"title":"4.3.3. Announce"}],"url":"#claims-network"},
-"claims-service": {"dfnID":"claims-service","dfnText":"Claims service","external":false,"refSections":[{"refs":[{"id":"ref-for-claims-service"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claims-service\u2460"}],"title":"4. Network communication patterns"}],"url":"#claims-service"},
+"claim": {"dfnID":"claim","dfnText":"Claim","external":false,"refSections":[{"refs":[{"id":"ref-for-claim"}],"title":"2. Functional and non-functional requirements"},{"refs":[{"id":"ref-for-claim\u2460"},{"id":"ref-for-claim\u2461"},{"id":"ref-for-claim\u2462"},{"id":"ref-for-claim\u2463"},{"id":"ref-for-claim\u2464"},{"id":"ref-for-claim\u2465"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-claim\u2466"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-claim\u2467"},{"id":"ref-for-claim\u2468"}],"title":"5.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-claim\u2460\u24ea"},{"id":"ref-for-claim\u2460\u2460"}],"title":"5.2. Claim bot to summarizer service"},{"refs":[{"id":"ref-for-claim\u2460\u2461"},{"id":"ref-for-claim\u2460\u2462"},{"id":"ref-for-claim\u2460\u2463"},{"id":"ref-for-claim\u2460\u2464"},{"id":"ref-for-claim\u2460\u2465"}],"title":"5.2.1. Offer"},{"refs":[{"id":"ref-for-claim\u2460\u2466"},{"id":"ref-for-claim\u2460\u2467"},{"id":"ref-for-claim\u2460\u2468"}],"title":"5.3. Summarizer to claim bot service"},{"refs":[{"id":"ref-for-claim\u2461\u24ea"},{"id":"ref-for-claim\u2461\u2460"}],"title":"5.3.1. Accept"},{"refs":[{"id":"ref-for-claim\u2461\u2461"},{"id":"ref-for-claim\u2461\u2462"}],"title":"5.3.2. Reject"},{"refs":[{"id":"ref-for-claim\u2461\u2463"},{"id":"ref-for-claim\u2461\u2464"},{"id":"ref-for-claim\u2461\u2465"},{"id":"ref-for-claim\u2461\u2466"}],"title":"5.3.3. Announce"},{"refs":[{"id":"ref-for-claim\u2461\u2467"},{"id":"ref-for-claim\u2461\u2468"}],"title":"5.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-claim\u2462\u24ea"},{"id":"ref-for-claim\u2462\u2460"},{"id":"ref-for-claim\u2462\u2461"}],"title":"5.4.1. Claim Summary"}],"url":"#claim"},
+"claim-bot": {"dfnID":"claim-bot","dfnText":"Claim bot","external":false,"refSections":[{"refs":[{"id":"ref-for-claim-bot"},{"id":"ref-for-claim-bot\u2460"},{"id":"ref-for-claim-bot\u2461"},{"id":"ref-for-claim-bot\u2462"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claim-bot\u2463"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-claim-bot\u2464"},{"id":"ref-for-claim-bot\u2465"},{"id":"ref-for-claim-bot\u2466"},{"id":"ref-for-claim-bot\u2467"},{"id":"ref-for-claim-bot\u2468"}],"title":"5.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-claim-bot\u2460\u24ea"},{"id":"ref-for-claim-bot\u2460\u2460"}],"title":"5.1.1. Announce"},{"refs":[{"id":"ref-for-claim-bot\u2460\u2461"},{"id":"ref-for-claim-bot\u2460\u2462"}],"title":"5.2. Claim bot to summarizer service"},{"refs":[{"id":"ref-for-claim-bot\u2460\u2463"},{"id":"ref-for-claim-bot\u2460\u2464"}],"title":"5.2.1. Offer"},{"refs":[{"id":"ref-for-claim-bot\u2460\u2465"},{"id":"ref-for-claim-bot\u2460\u2466"},{"id":"ref-for-claim-bot\u2460\u2467"}],"title":"5.3. Summarizer to claim bot service"},{"refs":[{"id":"ref-for-claim-bot\u2460\u2468"},{"id":"ref-for-claim-bot\u2461\u24ea"},{"id":"ref-for-claim-bot\u2461\u2460"},{"id":"ref-for-claim-bot\u2461\u2461"},{"id":"ref-for-claim-bot\u2461\u2462"}],"title":"5.3.1. Accept"},{"refs":[{"id":"ref-for-claim-bot\u2461\u2463"},{"id":"ref-for-claim-bot\u2461\u2464"},{"id":"ref-for-claim-bot\u2461\u2465"},{"id":"ref-for-claim-bot\u2461\u2466"},{"id":"ref-for-claim-bot\u2461\u2467"}],"title":"5.3.2. Reject"},{"refs":[{"id":"ref-for-claim-bot\u2461\u2468"},{"id":"ref-for-claim-bot\u2462\u24ea"},{"id":"ref-for-claim-bot\u2462\u2460"},{"id":"ref-for-claim-bot\u2462\u2461"}],"title":"5.3.3. Announce"},{"refs":[{"id":"ref-for-claim-bot\u2462\u2462"}],"title":"5.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-claim-bot\u2462\u2463"},{"id":"ref-for-claim-bot\u2462\u2464"},{"id":"ref-for-claim-bot\u2462\u2465"}],"title":"5.4.1. Claim Summary"},{"refs":[{"id":"ref-for-claim-bot\u2462\u2466"},{"id":"ref-for-claim-bot\u2462\u2467"},{"id":"ref-for-claim-bot\u2462\u2468"},{"id":"ref-for-claim-bot\u2463\u24ea"},{"id":"ref-for-claim-bot\u2463\u2460"},{"id":"ref-for-claim-bot\u2463\u2461"},{"id":"ref-for-claim-bot\u2463\u2462"},{"id":"ref-for-claim-bot\u2463\u2463"},{"id":"ref-for-claim-bot\u2463\u2464"}],"title":"5.4.2. Announce"}],"url":"#claim-bot"},
+"claim-summary": {"dfnID":"claim-summary","dfnText":"Claim summary","external":false,"refSections":[{"refs":[{"id":"ref-for-claim-summary"},{"id":"ref-for-claim-summary\u2460"}],"title":"5.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-claim-summary\u2461"},{"id":"ref-for-claim-summary\u2462"},{"id":"ref-for-claim-summary\u2463"},{"id":"ref-for-claim-summary\u2464"},{"id":"ref-for-claim-summary\u2465"},{"id":"ref-for-claim-summary\u2466"},{"id":"ref-for-claim-summary\u2467"},{"id":"ref-for-claim-summary\u2468"}],"title":"5.4.1. Claim Summary"},{"refs":[{"id":"ref-for-claim-summary\u2460\u24ea"},{"id":"ref-for-claim-summary\u2460\u2460"},{"id":"ref-for-claim-summary\u2460\u2461"},{"id":"ref-for-claim-summary\u2460\u2462"},{"id":"ref-for-claim-summary\u2460\u2463"}],"title":"5.4.2. Announce"}],"url":"#claim-summary"},
+"claims-network": {"dfnID":"claims-network","dfnText":"Claims network","external":false,"refSections":[{"refs":[{"id":"ref-for-claims-network"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claims-network\u2460"},{"id":"ref-for-claims-network\u2461"},{"id":"ref-for-claims-network\u2462"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-claims-network\u2463"},{"id":"ref-for-claims-network\u2464"}],"title":"4. General Process Flow"},{"refs":[{"id":"ref-for-claims-network\u2465"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-claims-network\u2466"}],"title":"5.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-claims-network\u2467"}],"title":"5.3.3. Announce"}],"url":"#claims-network"},
+"claims-service": {"dfnID":"claims-service","dfnText":"Claims service","external":false,"refSections":[{"refs":[{"id":"ref-for-claims-service"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claims-service\u2460"}],"title":"5. Network communication patterns"}],"url":"#claims-service"},
 "data-node": {"dfnID":"data-node","dfnText":"Data Node","external":false,"refSections":[{"refs":[{"id":"ref-for-data-node"},{"id":"ref-for-data-node\u2460"}],"title":"3. Terminology"}],"url":"#data-node"},
-"inbox": {"dfnID":"inbox","dfnText":"Inbox","external":false,"refSections":[{"refs":[{"id":"ref-for-inbox"}],"title":"4.1.1. Announce"},{"refs":[{"id":"ref-for-inbox\u2460"},{"id":"ref-for-inbox\u2461"}],"title":"4.2.1. Offer"},{"refs":[{"id":"ref-for-inbox\u2462"},{"id":"ref-for-inbox\u2463"},{"id":"ref-for-inbox\u2464"},{"id":"ref-for-inbox\u2465"}],"title":"4.3. Summarizer to claim bot service"},{"refs":[{"id":"ref-for-inbox\u2466"},{"id":"ref-for-inbox\u2467"}],"title":"4.3.1. Accept"},{"refs":[{"id":"ref-for-inbox\u2468"},{"id":"ref-for-inbox\u2460\u24ea"}],"title":"4.3.2. Reject"},{"refs":[{"id":"ref-for-inbox\u2460\u2460"},{"id":"ref-for-inbox\u2460\u2461"}],"title":"4.3.3. Announce"}],"url":"#inbox"},
+"inbox": {"dfnID":"inbox","dfnText":"Inbox","external":false,"refSections":[{"refs":[{"id":"ref-for-inbox"}],"title":"5.1.1. Announce"},{"refs":[{"id":"ref-for-inbox\u2460"},{"id":"ref-for-inbox\u2461"}],"title":"5.2.1. Offer"},{"refs":[{"id":"ref-for-inbox\u2462"},{"id":"ref-for-inbox\u2463"},{"id":"ref-for-inbox\u2464"},{"id":"ref-for-inbox\u2465"}],"title":"5.3. Summarizer to claim bot service"},{"refs":[{"id":"ref-for-inbox\u2466"},{"id":"ref-for-inbox\u2467"}],"title":"5.3.1. Accept"},{"refs":[{"id":"ref-for-inbox\u2468"},{"id":"ref-for-inbox\u2460\u24ea"}],"title":"5.3.2. Reject"},{"refs":[{"id":"ref-for-inbox\u2460\u2460"},{"id":"ref-for-inbox\u2460\u2461"}],"title":"5.3.3. Announce"}],"url":"#inbox"},
 "notification": {"dfnID":"notification","dfnText":"Notification","external":false,"refSections":[],"url":"#notification"},
 "service-node": {"dfnID":"service-node","dfnText":"Service Node","external":false,"refSections":[{"refs":[{"id":"ref-for-service-node"}],"title":"3. Terminology"}],"url":"#service-node"},
-"service-result": {"dfnID":"service-result","dfnText":"Service Result","external":false,"refSections":[{"refs":[{"id":"ref-for-service-result"},{"id":"ref-for-service-result\u2460"}],"title":"4.3.3. Announce"}],"url":"#service-result"},
-"summarizer-service": {"dfnID":"summarizer-service","dfnText":"Summarizer Service","external":false,"refSections":[{"refs":[{"id":"ref-for-summarizer-service"},{"id":"ref-for-summarizer-service\u2460"},{"id":"ref-for-summarizer-service\u2461"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-summarizer-service\u2462"},{"id":"ref-for-summarizer-service\u2463"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-summarizer-service\u2464"},{"id":"ref-for-summarizer-service\u2465"},{"id":"ref-for-summarizer-service\u2466"}],"title":"4.2. Claim bot to summarizer service"},{"refs":[{"id":"ref-for-summarizer-service\u2467"},{"id":"ref-for-summarizer-service\u2468"}],"title":"4.2.1. Offer"},{"refs":[{"id":"ref-for-summarizer-service\u2460\u24ea"},{"id":"ref-for-summarizer-service\u2460\u2460"},{"id":"ref-for-summarizer-service\u2460\u2461"}],"title":"4.3. Summarizer to claim bot service"},{"refs":[{"id":"ref-for-summarizer-service\u2460\u2462"},{"id":"ref-for-summarizer-service\u2460\u2463"},{"id":"ref-for-summarizer-service\u2460\u2464"},{"id":"ref-for-summarizer-service\u2460\u2465"},{"id":"ref-for-summarizer-service\u2460\u2466"},{"id":"ref-for-summarizer-service\u2460\u2467"},{"id":"ref-for-summarizer-service\u2460\u2468"}],"title":"4.3.1. Accept"},{"refs":[{"id":"ref-for-summarizer-service\u2461\u24ea"},{"id":"ref-for-summarizer-service\u2461\u2460"},{"id":"ref-for-summarizer-service\u2461\u2461"},{"id":"ref-for-summarizer-service\u2461\u2462"},{"id":"ref-for-summarizer-service\u2461\u2463"},{"id":"ref-for-summarizer-service\u2461\u2464"},{"id":"ref-for-summarizer-service\u2461\u2465"}],"title":"4.3.2. Reject"},{"refs":[{"id":"ref-for-summarizer-service\u2461\u2466"},{"id":"ref-for-summarizer-service\u2461\u2467"},{"id":"ref-for-summarizer-service\u2461\u2468"},{"id":"ref-for-summarizer-service\u2462\u24ea"},{"id":"ref-for-summarizer-service\u2462\u2460"},{"id":"ref-for-summarizer-service\u2462\u2461"}],"title":"4.3.3. Announce"}],"url":"#summarizer-service"},
+"service-result": {"dfnID":"service-result","dfnText":"Service Result","external":false,"refSections":[{"refs":[{"id":"ref-for-service-result"},{"id":"ref-for-service-result\u2460"}],"title":"5.3.3. Announce"}],"url":"#service-result"},
+"summarizer-service": {"dfnID":"summarizer-service","dfnText":"Summarizer Service","external":false,"refSections":[{"refs":[{"id":"ref-for-summarizer-service"},{"id":"ref-for-summarizer-service\u2460"},{"id":"ref-for-summarizer-service\u2461"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-summarizer-service\u2462"},{"id":"ref-for-summarizer-service\u2463"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-summarizer-service\u2464"},{"id":"ref-for-summarizer-service\u2465"},{"id":"ref-for-summarizer-service\u2466"}],"title":"5.2. Claim bot to summarizer service"},{"refs":[{"id":"ref-for-summarizer-service\u2467"},{"id":"ref-for-summarizer-service\u2468"}],"title":"5.2.1. Offer"},{"refs":[{"id":"ref-for-summarizer-service\u2460\u24ea"},{"id":"ref-for-summarizer-service\u2460\u2460"},{"id":"ref-for-summarizer-service\u2460\u2461"}],"title":"5.3. Summarizer to claim bot service"},{"refs":[{"id":"ref-for-summarizer-service\u2460\u2462"},{"id":"ref-for-summarizer-service\u2460\u2463"},{"id":"ref-for-summarizer-service\u2460\u2464"},{"id":"ref-for-summarizer-service\u2460\u2465"},{"id":"ref-for-summarizer-service\u2460\u2466"},{"id":"ref-for-summarizer-service\u2460\u2467"},{"id":"ref-for-summarizer-service\u2460\u2468"}],"title":"5.3.1. Accept"},{"refs":[{"id":"ref-for-summarizer-service\u2461\u24ea"},{"id":"ref-for-summarizer-service\u2461\u2460"},{"id":"ref-for-summarizer-service\u2461\u2461"},{"id":"ref-for-summarizer-service\u2461\u2462"},{"id":"ref-for-summarizer-service\u2461\u2463"},{"id":"ref-for-summarizer-service\u2461\u2464"},{"id":"ref-for-summarizer-service\u2461\u2465"}],"title":"5.3.2. Reject"},{"refs":[{"id":"ref-for-summarizer-service\u2461\u2466"},{"id":"ref-for-summarizer-service\u2461\u2467"},{"id":"ref-for-summarizer-service\u2461\u2468"},{"id":"ref-for-summarizer-service\u2462\u24ea"},{"id":"ref-for-summarizer-service\u2462\u2460"},{"id":"ref-for-summarizer-service\u2462\u2461"}],"title":"5.3.3. Announce"}],"url":"#summarizer-service"},
 "verification-service": {"dfnID":"verification-service","dfnText":"Verification Service","external":false,"refSections":[],"url":"#verification-service"},
 };
 
