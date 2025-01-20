@@ -57,7 +57,7 @@ To discuss the claims network, the following terms are used in this specificatio
 :: A social network platform such as Mastodon that is used in an academic setting that is used by researchers to publish claims about a contribution to the scholarly record of the researcher.
 
 : <dfn export>Activity Log</dfn>
-:: A public machine-readable Web resource that contains descriptive metadata about [=claims=] artifacts created by a researcher combined with provenance information about the [=claim=] itself.
+:: A public machine-readable append-only Web resource that contains descriptive metadata about [=claims=] artifacts created by a researcher combined with provenance information about the [=claim=] itself.
 
 : <dfn export>Artifact</dfn>
 :: An artifact is a Web resource identified by a URL that serves at the main focus of interaction between the participants in the network. Examples of artifacts are traditional scholarly contributions but also interviews, news reports about a researcher or research project, teaching activities, and contributions to open-source development.
@@ -424,7 +424,9 @@ An example of a [=claim summary=] document is provided in Example 8.
 Activity Log {#activity-log}
 ============================
 
-TDB
+An activity log is a public machine-readable append-only Web resource that contains descriptive metadata about claims artifacts created by a researcher combined with provenance information about the claim itself. 
+
+Individual [=claim summaries=] are published as RDF resources. A logical next step would be to make all these RDF resources accessible through an RDF endpoint. In a [=claims network=], we follow the [Linked Data Fragments](https://linkeddatafragments.org) architecture, which does not prescribe a specific publication platform for such logs. A collection of [=claim summaries=] can be made available as a downloadable dump. This solution would be expensive for clients. At the high end a [[sparql-query|SPARQL]] end point would provide clients with a query interface, but a high implementation cost for servers. In the middle a [Quad Pattern Fragments](https://linkeddatafragments.org/specification/quad-pattern-fragments/) service could be setup that is relatively a low bandwidth solution for a server and a bit higher implementation cost for clients.
 
 Discovery of network components {#discovery}
 ============================================
