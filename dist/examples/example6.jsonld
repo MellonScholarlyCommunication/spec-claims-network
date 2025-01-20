@@ -6,6 +6,7 @@
     "actor": {
         "id": "https://bots.surf.nl/profile/card#me",
         "name": "Zotero Service Provider",
+        "inbox": "https://bots.surf.nl/inbox/",
         "type": "Service"
     },
     "context": "https://parliament.nl/questions/2025-21-121291",

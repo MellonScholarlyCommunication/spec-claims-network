@@ -5,7 +5,7 @@
     "about" : {
        "https://summary.surf.nl/result/12712-128219.jsonld" : {
           "id" : "https://parliament.nl/questions/2025-21-121291",
-          "type" : "http://purl.org/net/xbiblio/csl#post-weblog",
+          "type" : "https://schema.org/WebPage",
           "author" : {
              "id" : "https://orcid.org/0000-0000-0000-0001",
              "familyName" : "Hayes",

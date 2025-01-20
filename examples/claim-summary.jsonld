@@ -5,7 +5,7 @@
     "about" : {
        "https://summary.surf.nl/result/12712-128219.jsonld" : {
           "id" : "https://parliament.nl/questions/2025-21-121291",
-          "type" : "http://purl.org/net/xbiblio/csl#post-weblog",
+          "type" : "https://schema.org/WebPage",
           "author" : {
              "id" : "https://orcid.org/0000-0000-0000-0001",
              "familyName" : "Hayes",
@@ -22,14 +22,12 @@
        "name" : "Alice Hayes",
        "type" : "Person"
     },
-    "isBasedOn" : {
-       "id" : "https://social.edu.nl/@alice/112891078566219289"
-    },
+    "isBasedOn" : "https://social.edu.nl/@alice/112891078566219289",
     "mainEntity" : "https://parliament.nl/questions/2025-21-121291",
     "sdDatePublished" : "2025-02-02T06:45:54.000Z",
     "sdPublisher" : {
        "id" : "https://bots.surf.nl/profile/card#me",
-       "name" : "Mastodon Bot",
-       "type" : "Service"
+       "type" : "Service",
+       "name" : "Mastodon Bot"
     }
  }

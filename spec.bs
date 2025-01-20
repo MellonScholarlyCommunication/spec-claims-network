@@ -22,7 +22,7 @@ In 2024, SURF (the ICR cooperative of Dutch education and research institutions)
 
 *Figure 1: Overview of the claims network*
 
-The processing flow in the claims network is listed below:
+An overview of a processing flow in the claims network is listed below. The details of such a processing flow will be presented in section 4.
 
 - [1] Alice, a Dutch researcher, wants to claim a new contribution artifact at <tt>URL-F</tt> for her scholarly record. 
 - [2] Alice, as an account on a national [=academic social networking service=] which provides researchers a safe communication medium to support informal researcher interactions with a focus on science, popularization of science, and education. In the Figure 1, the national academic social service <tt>social.edu.nl</tt> is implemented using Mastodon. With a 'toot' message including the <tt>URL-F</tt>, Alice claims her contribution. In her toot she sends a carbon-copy (cc) of this notification to a [=claim bot=] at the Mastodon handle <tt>@logbot@bots.surf.nl</tt>.
@@ -178,10 +178,10 @@ An [=academic social networking service=] should trigger a [=claim bot=] by send
 	- As value of the <tt>id</tt> property, the URL of the social networking post.
 	- As value of the <tt>content</tt> property, the post message.
 	- The <tt>url</tt> property is a collection of zero or more URL-s that are mentioned in the post message. Each url item has the following properties:
-		- As value of the <tt>href</tt> property, the URL that is mentioned in the [=academic social network=] post.
+		- As value of the <tt>href</tt> property, the URL that is mentioned in the [=academic social networking service=] post.
 		- As value of the <tt>type</tt> property, the fixed string <tt>Link</tt>.
 	- As value of the <tt>type</tt> property, the fixed string <tt>Note</tt>.
-- The `published` property should contain in ISO 8601 format the datetime of the original [=academic social network=] post.
+- The `published` property should contain in ISO 8601 format the datetime of the original [=academic social networking service=] post.
 
 In Example 2, we illustrate the structure of an LDN+AS2 notification corresponding to the toot presented in Example 1.
 
@@ -399,7 +399,27 @@ show:
 Claim Summary {#claim-summary}
 ==============================
 
-TDB
+A [=claim summary=] is an RDF source in the JSON-LD format containing a summary of a claim [=artifact=] including provenance information about the [=claim=] itself. Each [=claim summary=] has the following properties:
+
+- The `id` property should contain a new minted identifier for every [=claim summary=].
+- The `type` property is the fixed string <tt>Claim</tt>.
+- The `about` property provides information about an [=artifact=] in a [=claim=]. The value of an `about` is a single entry with a global unique identifier. The entry should contain:
+	- As value of the `id` property, the URL of the [=artifact=].
+	- As value of the `type` property, a [Schema.org](https://schema.org/WebPage) `CreativeWork` or one of its subtypes.
+	- All other properties and sub-properties are conform to the `CreativeWork` schema of one of its subtypes.
+- The `creator` property provides information about the [=academic social networking service=] account that made the claim, with:
+	- As value of the `id` property, the URL of the [=academic social networking service=] account that made the claim.
+	- As value of the `type` property, the fixed string <tt>Person</tt>.
+	- As value of the `name` property, the full name associated with the [=academic social networking service=] account.
+- The `isBasedOn` property should contain the URL of the [=claim=].
+- The `mainEntity` property should contain the URL of the [=artifact=] that is mentioned in the [=claim=].
+- The `sdDatePublished` property should contain the ISO 8601 publication date of the [=claim summary=].
+- The `sdPublisher` property should contain information about the [=claim bot=], with:
+	- As value of the `id` property, the public WebID profile of the [=claim bot=]
+	- As value of the `type` property, the fixed string <tt>Service</tt>.
+	- As value of the `name` property, the name of the [=claim bot=].
+
+An example of a [=claim summary=] document is provided in Example 8.
 
 Activity Log {#activity-log}
 ============================
