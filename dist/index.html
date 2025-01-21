@@ -1490,8 +1490,13 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version ac5ea272d, updated Fri Dec 6 15:45:15 2024 -0800" name="generator">
   <link href="_ORCHESTRATOR_CURRENT_BUILD_FULL_LINK_" rel="canonical">
-  <meta content="dc5678d532cc58e0d7aa5bcf84c52732ab22893a" name="revision">
+  <meta content="56c02b3b4592ce8d99ab5c3b5df131d6a5390284" name="revision">
   <meta content="dark light" name="color-scheme">
+<style>
+.scr {
+  font-family: 'Brush Script MT', cursive;
+}
+</style>
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2172,7 +2177,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://knows.idlab.ugent.be/"> <img alt="KNoWS" height="48" src="logo.png"> </a> </p>
    <h1 class="p-name no-ref" id="title">Claims Network</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Document, <time class="dt-updated" datetime="2025-01-20">20 January 2025</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Document, <time class="dt-updated" datetime="2025-01-21">21 January 2025</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>Previous Versions:
@@ -2187,7 +2192,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 20 January 2025,
+In addition, as of 21 January 2025,
 the editors have made this specification available under the <a href="https://www.openwebfoundation.org/the-agreements/the-owf-1-0-agreements-granted-claims/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at https://www.openwebfoundation.org/the-agreements/the-owf-1-0-agreements-granted-claims/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2234,8 +2239,9 @@ Parts of this work may be from another specification document.  If so, those par
      </ol>
     <li><a href="#claim-summary①"><span class="secno">6</span> <span class="content">Claim Summary</span></a>
     <li><a href="#activity-log①"><span class="secno">7</span> <span class="content">Activity Log</span></a>
-    <li><a href="#discovery"><span class="secno">8</span> <span class="content">Discovery of network components and trust</span></a>
-    <li><a href="#trust-process-flow"><span class="secno">9</span> <span class="content">Process Flow with Trust</span></a>
+    <li><a href="#network-identities-trust"><span class="secno">8</span> <span class="content">Network identities &amp; trust</span></a>
+    <li><a href="#verification-service①"><span class="secno">9</span> <span class="content">Verification service</span></a>
+    <li><a href="#trust-process-flow"><span class="secno">10</span> <span class="content">Trust Process Flow</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -2260,17 +2266,17 @@ Parts of this work may be from another specification document.  If so, those par
    <ul>
     <li data-md>
      <p>
-      [1] Alice, a Dutch researcher, wants to claim a new contribution artifact at 
+      [1] Carol, a Dutch researcher, wants to claim a new contribution artifact at 
       <tt>URL-F</tt>
        for her scholarly record.
      </p>
     <li data-md>
      <p>
-      [2] Alice, as an account on a national <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service">academic social networking service</a> which provides researchers a safe communication medium to support informal researcher interactions with a focus on science, popularization of science, and education. In the Figure 1, the national academic social service 
+      [2] Carol, as an account on a national <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service">academic social networking service</a> which provides researchers a safe communication medium to support informal researcher interactions with a focus on science, popularization of science, and education. In the Figure 1, the national academic social service 
       <tt>social.edu.nl</tt>
        is implemented using Mastodon. With a 'toot' message including the 
       <tt>URL-F</tt>
-      , Alice claims her contribution. In her toot she sends a carbon-copy (cc) of this notification to a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot">claim bot</a> at the Mastodon handle 
+      , Carol claims her contribution. In her toot she sends a carbon-copy (cc) of this notification to a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot">claim bot</a> at the Mastodon handle 
       <tt>@logbot@bots.surf.nl</tt>
       .
      </p>
@@ -2295,7 +2301,7 @@ Parts of this work may be from another specification document.  If so, those par
     <li data-md>
      <p>[6] When a summary is available, the <a data-link-type="dfn" href="#summarizer-service" id="ref-for-summarizer-service②">summarizer service</a> updates the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot③">claim bot</a> about the metadata summary.</p>
     <li data-md>
-     <p>[7] The <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot④">claim bot</a> uses the summary to update a public <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log">activity log</a> with Carol’s contributions. This activity log can be used by a national <a data-link-type="dfn" href="#claims-service" id="ref-for-claims-service">claims service</a> (e.g. a CRIS system) to update the scholarly record for Alice.</p>
+     <p>[7] The <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot④">claim bot</a> uses the summary to update a public <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log">activity log</a> with Carol’s contributions. This activity log can be used by a national <a data-link-type="dfn" href="#claims-service" id="ref-for-claims-service">claims service</a> (e.g. a CRIS system) to update the scholarly record for Carol.</p>
    </ul>
    <h2 class="heading settled" data-level="2" id="functional"><span class="secno">2. </span><span class="content">Functional and non-functional requirements</span><a class="self-link" href="#functional"></a></h2>
    <p>A claims network should have the following functional requirements:</p>
@@ -2373,7 +2379,7 @@ Parts of this work may be from another specification document.  If so, those par
    <p><img alt="Overview of the network participants" src="images/claims_network.svg" width="800"> <em>Figure 2: notification exchanges in a claims network</em></p>
    <p>
     <strong>Step (1)</strong> The processing workflow in Figure 2 when a researcher, depicted as 
-    <tt>Alice</tt>
+    <tt>Carol</tt>
     , creates a toot in an <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service②">academic social networking service</a> presenting a contribution to her scholarly record. In our example we will use <a href="https://joinmastodon.org">Mastodon</a> as the implementation of such a service. Each claim toot contains at least a URL to an <a data-link-type="dfn" href="#artifact" id="ref-for-artifact③">artifact</a> and a references to a Mastodon account of a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑤">claim bot</a> . An example of such a toot could be:
    </p>
 <pre><tt>I just submitted my first question to the Dutch parliament! 
@@ -2381,12 +2387,12 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl</tt>
 </pre>
    <p>
     In our examples we assume that this toot is available at the URL 
-    <tt>https://social.edu.nl/@alice/112891078566219289</tt>
+    <tt>https://social.edu.nl/@Carol/112891078566219289</tt>
     . The toot with this URL we call the <a data-link-type="dfn" href="#claim" id="ref-for-claim⑥">claim</a>. The URL 
     <tt>https://parliament.nl/questions/2025-21-121291</tt>
      we will call the (claim) <a data-link-type="dfn" href="#artifact" id="ref-for-artifact④">artifact</a>.
    </p>
-   <p><strong>Step (2)</strong> A process in the associated with <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑥">claim bot</a> monitors toots that are directed to the Mastodon account of the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑦">claim bot</a>. This process picks up the new toot from Alice.</p>
+   <p><strong>Step (2)</strong> A process in the associated with <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑥">claim bot</a> monitors toots that are directed to the Mastodon account of the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot⑦">claim bot</a>. This process picks up the new toot from Carol.</p>
    <p>
     <strong>Step (3)</strong> The process of Step 2, transforms each <a data-link-type="dfn" href="#artifact" id="ref-for-artifact⑤">artifact</a> in the toot (<a data-link-type="dfn" href="#claim" id="ref-for-claim⑦">claim</a>) into an <a href="https://www.eventnotifications.net">Event Notifications in Value-Adding Networks</a> (EN) LDN+AS2 
     <tt>Announce</tt>
@@ -2419,18 +2425,18 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl</tt>
     <tt>Announce</tt>
      notification to a <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log②">activity log</a> with the location of the <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary①">claim summary</a>. The activity log uses this information to document open science activities of the researcher.
    </p>
-   <p><strong>Step (9)</strong> The <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①④">claim bot</a> send a toot to Alice informing her about the update of the <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log③">activity log</a>.</p>
+   <p><strong>Step (9)</strong> The <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①④">claim bot</a> send a toot to Carol informing her about the update of the <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log③">activity log</a>.</p>
    <h2 class="heading settled" data-level="5" id="network-communication-patterns"><span class="secno">5. </span><span class="content">Network communication patterns</span><a class="self-link" href="#network-communication-patterns"></a></h2>
    <p>In a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network⑥">claims network</a> automated agents, such as the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①⑤">claims bot</a>, operate on behalf of a researcher to update an <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log④">activity log</a> and <a data-link-type="dfn" href="#claims-service" id="ref-for-claims-service①">claims service</a> with descriptive metadata about <a data-link-type="dfn" href="#claim" id="ref-for-claim⑨">claims</a> made by the researcher on a (national) <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service③">academic social networking service</a>. The network nodes operate by sending LDN+AS2 between each other that follow the <a href="https://www.eventnotifications.net">Event Notifications in Value-Adding Networks</a> specification.</p>
    <p>Depending on the type of sender an receiver different types of notifications that are specified below.</p>
    <h3 class="heading settled" data-level="5.1" id="pattern-social-claim-bot"><span class="secno">5.1. </span><span class="content">Academic social network service to claim bot</span><a class="self-link" href="#pattern-social-claim-bot"></a></h3>
    <p>
-    The <strong>academic social network service to claim bot</strong> pattern is used by the <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service④">academic social networking service</a> to forward <a data-link-type="dfn" href="#claim" id="ref-for-claim①⓪">claims</a> to a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①⑥">claims bot</a>. Example 1 provides an example of such a <a data-link-type="dfn" href="#claim" id="ref-for-claim①①">claim</a> made by the researcher Alice on a Mastodon instance hosted at 
+    The <strong>academic social network service to claim bot</strong> pattern is used by the <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service④">academic social networking service</a> to forward <a data-link-type="dfn" href="#claim" id="ref-for-claim①⓪">claims</a> to a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot①⑥">claims bot</a>. Example 1 provides an example of such a <a data-link-type="dfn" href="#claim" id="ref-for-claim①①">claim</a> made by the researcher Carol on a Mastodon instance hosted at 
     <tt>https://social.edu.nl</tt>
     .
    </p>
-   <div class="example" id="example-236c6800">
-    <a class="self-link" href="#example-236c6800"></a> Alice creates a toot on 
+   <div class="example" id="example-0d9f400e">
+    <a class="self-link" href="#example-0d9f400e"></a> Carol creates a toot on 
     <tt>social.edu.nl</tt>
      claiming her the <a data-link-type="dfn" href="#artifact" id="ref-for-artifact⑨">artifact</a> 
     <tt>https://parliament.nl/questions/2025-21-121291</tt>
@@ -2560,8 +2566,8 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
      <p>The <code>published</code> property should contain in ISO 8601 format the datetime of the original <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service⑦">academic social networking service</a> post.</p>
    </ul>
    <p>In Example 2, we illustrate the structure of an LDN+AS2 notification corresponding to the toot presented in Example 1.</p>
-   <div class="example" id="example-cda21ad0">
-    <a class="self-link" href="#example-cda21ad0"></a> A generated LDN+AS2 notification for the toot in Example 1. 
+   <div class="example" id="example-6ae580a1">
+    <a class="self-link" href="#example-6ae580a1"></a> A generated LDN+AS2 notification for the toot in Example 1. 
 <pre class="include-code highlight"><c- p>{</c->
     <c- f>"@context"</c-><c- p>:</c-> <c- u>"https://www.w3.org/ns/activitystreams"</c-><c- p>,</c->
     <c- f>"id"</c-><c- p>:</c-> <c- u>"urn:uuid:6d21a2ae-df59-40d9-999c-18e19277d21a"</c-><c- p>,</c->
@@ -2569,7 +2575,7 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <c- f>"published"</c-><c- p>:</c-> <c- u>"2025-02-02T06:45:54.000Z"</c-><c- p>,</c->
     <c- f>"actor"</c-><c- p>:</c-> <c- p>{</c->
       <c- f>"id"</c-><c- p>:</c-> <c- u>"https://social.edu.nl/@alice"</c-><c- p>,</c->
-      <c- f>"name"</c-><c- p>:</c-> <c- u>"Alice"</c-><c- p>,</c->
+      <c- f>"name"</c-><c- p>:</c-> <c- u>"Carol"</c-><c- p>,</c->
       <c- f>"type"</c-><c- p>:</c-> <c- u>"Person"</c->
     <c- p>},</c->
     <c- f>"origin"</c-><c- p>:</c-> <c- p>{</c->
@@ -2588,7 +2594,8 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
       <c- p>],</c->
       <c- f>"type"</c-><c- p>:</c-> <c- u>"Note"</c->
     <c- p>}</c->
-<c- p>}</c-></pre>
+<c- p>}</c->
+</pre>
    </div>
    <h3 class="heading settled" data-level="5.2" id="pattern-claim-bot-summarizer"><span class="secno">5.2. </span><span class="content">Claim bot to summarizer service</span><a class="self-link" href="#pattern-claim-bot-summarizer"></a></h3>
    <p>
@@ -3038,8 +3045,8 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <tt>https://summary.surf.nl/result/12712-128219.jsonld</tt>
      of Example 6.
    </p>
-   <div class="example" id="example-21840397">
-    <a class="self-link" href="#example-21840397"></a> A schema.org summarization service result for Example 6 made available as the Web resource 
+   <div class="example" id="example-ab618da1">
+    <a class="self-link" href="#example-ab618da1"></a> A schema.org summarization service result for Example 6 made available as the Web resource 
     <tt>https://summary.surf.nl/result/12712-128219.jsonld</tt>
     . 
 <pre class="include-code highlight"><c- p>{</c->
@@ -3049,13 +3056,14 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
   <c- f>"author"</c-> <c- p>:</c-> <c- p>{</c->
      <c- f>"id"</c-> <c- p>:</c-> <c- u>"https://orcid.org/0000-0000-0000-0001"</c-><c- p>,</c->
      <c- f>"familyName"</c-> <c- p>:</c-> <c- u>"Hayes"</c-><c- p>,</c->
-     <c- f>"givenName"</c-> <c- p>:</c-> <c- u>"Alice"</c-><c- p>,</c->
+     <c- f>"givenName"</c-> <c- p>:</c-> <c- u>"Carol"</c-><c- p>,</c->
      <c- f>"type"</c-> <c- p>:</c-> <c- u>"Person"</c->
   <c- p>},</c->
   <c- f>"datePublished"</c-> <c- p>:</c-> <c- u>"2025"</c-><c- p>,</c->
   <c- f>"language"</c-> <c- p>:</c-> <c- u>"en-US"</c-><c- p>,</c->
   <c- f>"title"</c-> <c- p>:</c-> <c- u>"Violating the ban on killing eels with a salt bath."</c->
-<c- p>}</c-></pre>
+<c- p>}</c->
+</pre>
    </div>
    <h3 class="heading settled" data-level="5.4" id="pattern-activity-log"><span class="secno">5.4. </span><span class="content">Claim bot to the activity log service</span><a class="self-link" href="#pattern-activity-log"></a></h3>
    <p>The <strong>claim bot to the activity log service</strong> pattern is used by a <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot④④">claim bot</a> to update an <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log⑤">activity log</a> about a summary that was made for a <a data-link-type="dfn" href="#claim" id="ref-for-claim①③">claim</a>. Example 1, contains an example of such a claim: https://parliament.nl/questions/2025-21-121291 . Example 7, provides an example of a summary that was generated for that <a data-link-type="dfn" href="#claim" id="ref-for-claim①④">claim</a>. To publish the summary in an application-neutral format while including its provenance, we propose a <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary②">Claim Summary</a> RDF source, of which we will provide an example in the following subsection, an explained in section 6. This <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary③">claim summary</a> will be offered to an <a data-link-type="dfn" href="#activity-log" id="ref-for-activity-log⑥">activity log</a> using an LDN+AS2 event notification.</p>
@@ -3080,8 +3088,8 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <tt>https://bots.surf.nl/summary/237123-21318.jsonld</tt>
     .
    </p>
-   <div class="example" id="example-261f5f5f">
-    <a class="self-link" href="#example-261f5f5f"></a> 
+   <div class="example" id="example-7e73afe4">
+    <a class="self-link" href="#example-7e73afe4"></a> 
     <p>
      An example of a <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary①⓪">claim summary</a> created for the <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑦">claim</a> of Example 1 and the generated metadata summary of Example 7. This <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary①①">claim summary</a> will be published by the <a data-link-type="dfn" href="#claim-bot" id="ref-for-claim-bot④⑦">claim bot</a> at URL 
      <tt>https://bots.surf.nl/summary/237123-21318.jsonld</tt>
@@ -3098,7 +3106,7 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
           <c- f>"author"</c-> <c- p>:</c-> <c- p>{</c->
              <c- f>"id"</c-> <c- p>:</c-> <c- u>"https://orcid.org/0000-0000-0000-0001"</c-><c- p>,</c->
              <c- f>"familyName"</c-> <c- p>:</c-> <c- u>"Hayes"</c-><c- p>,</c->
-             <c- f>"givenName"</c-> <c- p>:</c-> <c- u>"Alice"</c-><c- p>,</c->
+             <c- f>"givenName"</c-> <c- p>:</c-> <c- u>"Carol"</c-><c- p>,</c->
              <c- f>"type"</c-> <c- p>:</c-> <c- u>"Person"</c->
           <c- p>},</c->
           <c- f>"datePublished"</c-> <c- p>:</c-> <c- u>"2025"</c-><c- p>,</c->
@@ -3108,7 +3116,7 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
     <c- p>},</c->
     <c- f>"creator"</c-> <c- p>:</c-> <c- p>{</c->
        <c- f>"id"</c-> <c- p>:</c-> <c- u>"https://social.edu.nl/@alice"</c-><c- p>,</c->
-       <c- f>"name"</c-> <c- p>:</c-> <c- u>"Alice Hayes"</c-><c- p>,</c->
+       <c- f>"name"</c-> <c- p>:</c-> <c- u>"Carol Hayes"</c-><c- p>,</c->
        <c- f>"type"</c-> <c- p>:</c-> <c- u>"Person"</c->
     <c- p>},</c->
     <c- f>"isBasedOn"</c-> <c- p>:</c-> <c- u>"https://social.edu.nl/@alice/112891078566219289"</c-><c- p>,</c->
@@ -3119,7 +3127,8 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
        <c- f>"type"</c-> <c- p>:</c-> <c- u>"Service"</c-><c- p>,</c->
        <c- f>"name"</c-> <c- p>:</c-> <c- u>"Mastodon Bot"</c->
     <c- p>}</c->
- <c- p>}</c-></pre>
+ <c- p>}</c->
+</pre>
    </div>
    <h4 class="heading settled" data-level="5.4.2" id="announce①"><span class="secno">5.4.2. </span><span class="content">Announce</span><a class="self-link" href="#announce①"></a></h4>
    <p>
@@ -3240,7 +3249,7 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
 <c- p>}</c-></pre>
    </div>
    <h2 class="heading settled" data-level="6" id="claim-summary①"><span class="secno">6. </span><span class="content">Claim Summary</span><a class="self-link" href="#claim-summary①"></a></h2>
-   <p>A <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary①⑦">claim summary</a> is an RDF source in the JSON-LD format containing a summary of a claim <a data-link-type="dfn" href="#artifact" id="ref-for-artifact②⑦">artifact</a> including provenance information about the <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑧">claim</a> itself. Each <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary①⑧">claim summary</a> has the following properties:</p>
+   <p>A <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary①⑦">claim summary</a> is an RDF source with a JSON-LD serialization format containing a summary of a claim <a data-link-type="dfn" href="#artifact" id="ref-for-artifact②⑦">artifact</a>, including provenance information about the <a data-link-type="dfn" href="#claim" id="ref-for-claim①⑧">claim</a> itself. Each <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary①⑧">claim summary</a> has the following properties:</p>
    <ul>
     <li data-md>
      <p>The <code>id</code> property should contain a new minted identifier for every <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary①⑨">claim summary</a>.</p>
@@ -3298,10 +3307,34 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
    <p>An example of a <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary②①">claim summary</a> document is provided in Example 8.</p>
    <h2 class="heading settled" data-level="7" id="activity-log①"><span class="secno">7. </span><span class="content">Activity Log</span><a class="self-link" href="#activity-log①"></a></h2>
    <p>An activity log is a public machine-readable append-only Web resource that contains descriptive metadata about claims artifacts created by a researcher combined with provenance information about the claim itself.</p>
-   <p>Individual <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary②②">claim summaries</a> are published as RDF resources. A logical next step would be to make all these RDF resources accessible through an RDF endpoint. In a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network⑨">claims network</a>, we follow the <a href="https://linkeddatafragments.org">Linked Data Fragments</a> architecture, which does not prescribe a specific publication platform for such logs. A collection of <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary②③">claim summaries</a> can be made available as a downloadable dump. This solution would be expensive for clients. At the high end a <a data-link-type="biblio" href="#biblio-sparql-query" title="SPARQL Query Language for RDF">SPARQL</a> end point would provide clients with a query interface, but a high implementation cost for servers. In the middle a <a href="https://linkeddatafragments.org/specification/quad-pattern-fragments/">Quad Pattern Fragments</a> service could be setup that is relatively a low bandwidth solution for a server and a bit higher implementation cost for clients.</p>
-   <h2 class="heading settled" data-level="8" id="discovery"><span class="secno">8. </span><span class="content">Discovery of network components and trust</span><a class="self-link" href="#discovery"></a></h2>
+   <p>Individual <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary②②">claim summaries</a> are published as RDF resources. A logical next step would be to make all these RDF resources accessible through an RDF endpoint. In a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network⑨">claims network</a>, we follow the <a href="https://linkeddatafragments.org">Linked Data Fragments</a> architecture, which does not prescribe a specific publication platform for such logs. A collection of <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary②③">claim summaries</a> can be made available as a downloadable dump, this solution would be expensive for clients. At the high end a <a data-link-type="biblio" href="#biblio-sparql-query" title="SPARQL Query Language for RDF">SPARQL</a> end-point would provide clients with a query interface, but a high implementation cost for servers. In the middle a <a href="https://linkeddatafragments.org/specification/quad-pattern-fragments/">Quad Pattern Fragments</a> service could be setup that is relatively a low bandwidth solution for a server and a bit higher implementation cost for clients.</p>
+   <h2 class="heading settled" data-level="8" id="network-identities-trust"><span class="secno">8. </span><span class="content">Network identities &amp; trust</span><a class="self-link" href="#network-identities-trust"></a></h2>
+   <p>Human actors within a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network①⓪">claims network</a> can adopt different identities across various platforms. A <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service①⑦">academic social networking service</a> and <a data-link-type="dfn" href="#claims-service" id="ref-for-claims-service②">claims service</a> are two examples of such services where identities for a human actor can be defined. These identities do not need to be unique nor uniform across the network. For example, the researcher Carol may have multiple identities in an <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service①⑧">academic social networking service</a>: <code>@carol@social.edu.nl</code>, which serves as her personal official identity, and <code>@drcat@social.edu.nl</code>, which functions as her anonymous identity. In the <a data-link-type="dfn" href="#claims-service" id="ref-for-claims-service③">claim service</a>, the CRIS system, Carol can have the identity <code>@carol.hayes@portal.edu.nl</code>.</p>
+   <p>In general, without a trust mechanism, it becomes challenging for automated processes to determine whether <a data-link-type="dfn" href="#claim" id="ref-for-claim②②">claims</a> made by arbitrary identities are genuine. Are these claims truly generated by a real person? Is this person affiliated with a research institution within the network? Furthermore, how is an identity in an <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service①⑨">academic social networking service</a> linked to another identity in a <a data-link-type="dfn" href="#claims-service" id="ref-for-claims-service④">claims service</a>? To provide an answer to these questions a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network①①">claims network</a> should incorporate provide the following mechanisms:</p>
+   <p>Any <a data-link-type="dfn" href="#claim" id="ref-for-claim②③">claims</a> that are of any relevance in a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network①②">claims network</a> are those that generatd by a person X with identity <span class="scr">A</span> in a <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service②⓪">academic social networking service</a> and an identity <span class="scr">C</span> in a <a data-link-type="dfn" href="#claims-service" id="ref-for-claims-service⑤">claims service</a> for which:</p>
+   <ol>
+    <li data-md>
+     <p>The person X has full control over <a data-link-type="dfn" href="#claim" id="ref-for-claim②④">claims</a> made by identity <span class="scr">A</span>.</p>
+     <ul>
+      <li data-md>
+       <p>There is a reasonable believe that there is no person Y such that X !=Y that can generate <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑤">claims</a> using identity <span class="scr">A</span>.</p>
+     </ul>
+    <li data-md>
+     <p>The identity <span class="scr">A</span> can be uniquely linked to the identity <span class="scr">C</span>.</p>
+    <li data-md>
+     <p>The person X with identity <span class="scr">A</span> is the same as the person with identity <span class="scr">C</span>.</p>
+    <li data-md>
+     <p>For every identity <span class="scr">A</span> or <span class="scr">C</span> is should be possible to verify that the person associated with the identity is a member of the <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network①③">claims network</a> (or a specific subset of it).</p>
+     <ul>
+      <li data-md>
+       <p>For instance, it should be possible to determine that person X with identity <span class="scr">A</span> is affiliated with a Dutch research institute.</p>
+     </ul>
+   </ol>
+   <p>The trust mechanisms outlined above do not impose any requirements for trusting the content of the <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑥">claim</a> itself. In a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network①④">claims network</a> we rely on a trust by reputation where the reliability of  a person is based on their past behavior in the network. Reputation serves as an indirect indicator of the trustworthiness a person. Aggregated feedback, such as social validation or reputation systems, can offer valuable insights into the trustworthiness of claims made by an individual. Although such reputation systems are relatively straightforward to implement, they are not entirely foolproof.</p>
+   <p>In implementing the trust requirements outlined in the previous section, requirement 1 cannot be translated into an enforceable rule. Requirement 1 necessitates security measures that safeguard a social media account against the unauthorized posting of <a data-link-type="dfn" href="#claim" id="ref-for-claim②⑦">claims</a>. <a data-link-type="dfn" href="#academic-social-networking-service" id="ref-for-academic-social-networking-service②①">Academic social networking services</a> may require robust security measures, including a strong password policy, multi-factor authentication, up-to-date SSL certificates, thorough security audits, regular software updates, and a proven reputation for delivering secure, ethical, and privacy-preserving services.</p>
+   <h2 class="heading settled" data-level="9" id="verification-service①"><span class="secno">9. </span><span class="content">Verification service</span><a class="self-link" href="#verification-service①"></a></h2>
    <p>TDB</p>
-   <h2 class="heading settled" data-level="9" id="trust-process-flow"><span class="secno">9. </span><span class="content">Process Flow with Trust</span><a class="self-link" href="#trust-process-flow"></a></h2>
+   <h2 class="heading settled" data-level="10" id="trust-process-flow"><span class="secno">10. </span><span class="content">Trust Process Flow</span><a class="self-link" href="#trust-process-flow"></a></h2>
    <p>TDB</p>
   </main>
   <div data-fill-with="conformance">
@@ -3684,14 +3717,14 @@ function parseHTML(markup) {
 "use strict";
 {
 let dfnPanelData = {
-"academic-social-networking-service": {"dfnID":"academic-social-networking-service","dfnText":"Academic social networking service","external":false,"refSections":[{"refs":[{"id":"ref-for-academic-social-networking-service"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460"},{"id":"ref-for-academic-social-networking-service\u2461"}],"title":"4. General Process Flow"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2462"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2463"}],"title":"5.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2464"},{"id":"ref-for-academic-social-networking-service\u2465"},{"id":"ref-for-academic-social-networking-service\u2466"}],"title":"5.1.1. Announce"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2467"}],"title":"5.2.1. Offer"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2468"}],"title":"5.3.1. Accept"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460\u24ea"}],"title":"5.3.2. Reject"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460\u2460"}],"title":"5.3.3. Announce"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460\u2461"}],"title":"5.4.1. Claim Summary"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460\u2462"}],"title":"5.4.2. Announce"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460\u2463"},{"id":"ref-for-academic-social-networking-service\u2460\u2464"},{"id":"ref-for-academic-social-networking-service\u2460\u2465"}],"title":"6. Claim Summary"}],"url":"#academic-social-networking-service"},
+"academic-social-networking-service": {"dfnID":"academic-social-networking-service","dfnText":"Academic social networking service","external":false,"refSections":[{"refs":[{"id":"ref-for-academic-social-networking-service"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460"},{"id":"ref-for-academic-social-networking-service\u2461"}],"title":"4. General Process Flow"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2462"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2463"}],"title":"5.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2464"},{"id":"ref-for-academic-social-networking-service\u2465"},{"id":"ref-for-academic-social-networking-service\u2466"}],"title":"5.1.1. Announce"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2467"}],"title":"5.2.1. Offer"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2468"}],"title":"5.3.1. Accept"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460\u24ea"}],"title":"5.3.2. Reject"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460\u2460"}],"title":"5.3.3. Announce"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460\u2461"}],"title":"5.4.1. Claim Summary"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460\u2462"}],"title":"5.4.2. Announce"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460\u2463"},{"id":"ref-for-academic-social-networking-service\u2460\u2464"},{"id":"ref-for-academic-social-networking-service\u2460\u2465"}],"title":"6. Claim Summary"},{"refs":[{"id":"ref-for-academic-social-networking-service\u2460\u2466"},{"id":"ref-for-academic-social-networking-service\u2460\u2467"},{"id":"ref-for-academic-social-networking-service\u2460\u2468"},{"id":"ref-for-academic-social-networking-service\u2461\u24ea"},{"id":"ref-for-academic-social-networking-service\u2461\u2460"}],"title":"8. Network identities & trust"}],"url":"#academic-social-networking-service"},
 "activity-log": {"dfnID":"activity-log","dfnText":"Activity Log","external":false,"refSections":[{"refs":[{"id":"ref-for-activity-log"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-activity-log\u2460"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-activity-log\u2461"},{"id":"ref-for-activity-log\u2462"}],"title":"4. General Process Flow"},{"refs":[{"id":"ref-for-activity-log\u2463"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-activity-log\u2464"},{"id":"ref-for-activity-log\u2465"}],"title":"5.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-activity-log\u2466"},{"id":"ref-for-activity-log\u2467"}],"title":"5.4.2. Announce"}],"url":"#activity-log"},
 "artifact": {"dfnID":"artifact","dfnText":"Artifact","external":false,"refSections":[{"refs":[{"id":"ref-for-artifact"},{"id":"ref-for-artifact\u2460"},{"id":"ref-for-artifact\u2461"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-artifact\u2462"},{"id":"ref-for-artifact\u2463"},{"id":"ref-for-artifact\u2464"},{"id":"ref-for-artifact\u2465"},{"id":"ref-for-artifact\u2466"},{"id":"ref-for-artifact\u2467"}],"title":"4. General Process Flow"},{"refs":[{"id":"ref-for-artifact\u2468"}],"title":"5.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-artifact\u2460\u24ea"},{"id":"ref-for-artifact\u2460\u2460"}],"title":"5.2. Claim bot to summarizer service"},{"refs":[{"id":"ref-for-artifact\u2460\u2461"},{"id":"ref-for-artifact\u2460\u2462"},{"id":"ref-for-artifact\u2460\u2463"},{"id":"ref-for-artifact\u2460\u2464"}],"title":"5.2.1. Offer"},{"refs":[{"id":"ref-for-artifact\u2460\u2465"},{"id":"ref-for-artifact\u2460\u2466"},{"id":"ref-for-artifact\u2460\u2467"}],"title":"5.3. Summarizer to claim bot service"},{"refs":[{"id":"ref-for-artifact\u2460\u2468"},{"id":"ref-for-artifact\u2461\u24ea"}],"title":"5.3.1. Accept"},{"refs":[{"id":"ref-for-artifact\u2461\u2460"},{"id":"ref-for-artifact\u2461\u2461"}],"title":"5.3.2. Reject"},{"refs":[{"id":"ref-for-artifact\u2461\u2462"},{"id":"ref-for-artifact\u2461\u2463"},{"id":"ref-for-artifact\u2461\u2464"},{"id":"ref-for-artifact\u2461\u2465"}],"title":"5.3.3. Announce"},{"refs":[{"id":"ref-for-artifact\u2461\u2466"},{"id":"ref-for-artifact\u2461\u2467"},{"id":"ref-for-artifact\u2461\u2468"},{"id":"ref-for-artifact\u2462\u24ea"}],"title":"6. Claim Summary"}],"url":"#artifact"},
-"claim": {"dfnID":"claim","dfnText":"Claim","external":false,"refSections":[{"refs":[{"id":"ref-for-claim"}],"title":"2. Functional and non-functional requirements"},{"refs":[{"id":"ref-for-claim\u2460"},{"id":"ref-for-claim\u2461"},{"id":"ref-for-claim\u2462"},{"id":"ref-for-claim\u2463"},{"id":"ref-for-claim\u2464"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-claim\u2465"},{"id":"ref-for-claim\u2466"},{"id":"ref-for-claim\u2467"}],"title":"4. General Process Flow"},{"refs":[{"id":"ref-for-claim\u2468"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-claim\u2460\u24ea"},{"id":"ref-for-claim\u2460\u2460"}],"title":"5.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-claim\u2460\u2461"}],"title":"5.2.1. Offer"},{"refs":[{"id":"ref-for-claim\u2460\u2462"},{"id":"ref-for-claim\u2460\u2463"}],"title":"5.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-claim\u2460\u2464"},{"id":"ref-for-claim\u2460\u2465"},{"id":"ref-for-claim\u2460\u2466"}],"title":"5.4.1. Claim Summary"},{"refs":[{"id":"ref-for-claim\u2460\u2467"},{"id":"ref-for-claim\u2460\u2468"},{"id":"ref-for-claim\u2461\u24ea"},{"id":"ref-for-claim\u2461\u2460"}],"title":"6. Claim Summary"}],"url":"#claim"},
+"claim": {"dfnID":"claim","dfnText":"Claim","external":false,"refSections":[{"refs":[{"id":"ref-for-claim"}],"title":"2. Functional and non-functional requirements"},{"refs":[{"id":"ref-for-claim\u2460"},{"id":"ref-for-claim\u2461"},{"id":"ref-for-claim\u2462"},{"id":"ref-for-claim\u2463"},{"id":"ref-for-claim\u2464"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-claim\u2465"},{"id":"ref-for-claim\u2466"},{"id":"ref-for-claim\u2467"}],"title":"4. General Process Flow"},{"refs":[{"id":"ref-for-claim\u2468"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-claim\u2460\u24ea"},{"id":"ref-for-claim\u2460\u2460"}],"title":"5.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-claim\u2460\u2461"}],"title":"5.2.1. Offer"},{"refs":[{"id":"ref-for-claim\u2460\u2462"},{"id":"ref-for-claim\u2460\u2463"}],"title":"5.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-claim\u2460\u2464"},{"id":"ref-for-claim\u2460\u2465"},{"id":"ref-for-claim\u2460\u2466"}],"title":"5.4.1. Claim Summary"},{"refs":[{"id":"ref-for-claim\u2460\u2467"},{"id":"ref-for-claim\u2460\u2468"},{"id":"ref-for-claim\u2461\u24ea"},{"id":"ref-for-claim\u2461\u2460"}],"title":"6. Claim Summary"},{"refs":[{"id":"ref-for-claim\u2461\u2461"},{"id":"ref-for-claim\u2461\u2462"},{"id":"ref-for-claim\u2461\u2463"},{"id":"ref-for-claim\u2461\u2464"},{"id":"ref-for-claim\u2461\u2465"},{"id":"ref-for-claim\u2461\u2466"}],"title":"8. Network identities & trust"}],"url":"#claim"},
 "claim-bot": {"dfnID":"claim-bot","dfnText":"Claim bot","external":false,"refSections":[{"refs":[{"id":"ref-for-claim-bot"},{"id":"ref-for-claim-bot\u2460"},{"id":"ref-for-claim-bot\u2461"},{"id":"ref-for-claim-bot\u2462"},{"id":"ref-for-claim-bot\u2463"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claim-bot\u2464"},{"id":"ref-for-claim-bot\u2465"},{"id":"ref-for-claim-bot\u2466"},{"id":"ref-for-claim-bot\u2467"},{"id":"ref-for-claim-bot\u2468"},{"id":"ref-for-claim-bot\u2460\u24ea"},{"id":"ref-for-claim-bot\u2460\u2460"},{"id":"ref-for-claim-bot\u2460\u2461"},{"id":"ref-for-claim-bot\u2460\u2462"},{"id":"ref-for-claim-bot\u2460\u2463"}],"title":"4. General Process Flow"},{"refs":[{"id":"ref-for-claim-bot\u2460\u2464"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-claim-bot\u2460\u2465"},{"id":"ref-for-claim-bot\u2460\u2466"},{"id":"ref-for-claim-bot\u2460\u2467"},{"id":"ref-for-claim-bot\u2460\u2468"},{"id":"ref-for-claim-bot\u2461\u24ea"}],"title":"5.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-claim-bot\u2461\u2460"},{"id":"ref-for-claim-bot\u2461\u2461"}],"title":"5.1.1. Announce"},{"refs":[{"id":"ref-for-claim-bot\u2461\u2462"},{"id":"ref-for-claim-bot\u2461\u2463"}],"title":"5.2. Claim bot to summarizer service"},{"refs":[{"id":"ref-for-claim-bot\u2461\u2464"},{"id":"ref-for-claim-bot\u2461\u2465"}],"title":"5.2.1. Offer"},{"refs":[{"id":"ref-for-claim-bot\u2461\u2466"},{"id":"ref-for-claim-bot\u2461\u2467"},{"id":"ref-for-claim-bot\u2461\u2468"}],"title":"5.3. Summarizer to claim bot service"},{"refs":[{"id":"ref-for-claim-bot\u2462\u24ea"},{"id":"ref-for-claim-bot\u2462\u2460"},{"id":"ref-for-claim-bot\u2462\u2461"},{"id":"ref-for-claim-bot\u2462\u2462"},{"id":"ref-for-claim-bot\u2462\u2463"}],"title":"5.3.1. Accept"},{"refs":[{"id":"ref-for-claim-bot\u2462\u2464"},{"id":"ref-for-claim-bot\u2462\u2465"},{"id":"ref-for-claim-bot\u2462\u2466"},{"id":"ref-for-claim-bot\u2462\u2467"},{"id":"ref-for-claim-bot\u2462\u2468"}],"title":"5.3.2. Reject"},{"refs":[{"id":"ref-for-claim-bot\u2463\u24ea"},{"id":"ref-for-claim-bot\u2463\u2460"},{"id":"ref-for-claim-bot\u2463\u2461"},{"id":"ref-for-claim-bot\u2463\u2462"}],"title":"5.3.3. Announce"},{"refs":[{"id":"ref-for-claim-bot\u2463\u2463"}],"title":"5.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-claim-bot\u2463\u2464"},{"id":"ref-for-claim-bot\u2463\u2465"},{"id":"ref-for-claim-bot\u2463\u2466"}],"title":"5.4.1. Claim Summary"},{"refs":[{"id":"ref-for-claim-bot\u2463\u2467"},{"id":"ref-for-claim-bot\u2463\u2468"},{"id":"ref-for-claim-bot\u2464\u24ea"},{"id":"ref-for-claim-bot\u2464\u2460"},{"id":"ref-for-claim-bot\u2464\u2461"},{"id":"ref-for-claim-bot\u2464\u2462"},{"id":"ref-for-claim-bot\u2464\u2463"},{"id":"ref-for-claim-bot\u2464\u2464"},{"id":"ref-for-claim-bot\u2464\u2465"}],"title":"5.4.2. Announce"},{"refs":[{"id":"ref-for-claim-bot\u2464\u2466"},{"id":"ref-for-claim-bot\u2464\u2467"},{"id":"ref-for-claim-bot\u2464\u2468"}],"title":"6. Claim Summary"}],"url":"#claim-bot"},
 "claim-summary": {"dfnID":"claim-summary","dfnText":"Claim summary","external":false,"refSections":[{"refs":[{"id":"ref-for-claim-summary"},{"id":"ref-for-claim-summary\u2460"}],"title":"4. General Process Flow"},{"refs":[{"id":"ref-for-claim-summary\u2461"},{"id":"ref-for-claim-summary\u2462"}],"title":"5.4. Claim bot to the activity log service"},{"refs":[{"id":"ref-for-claim-summary\u2463"},{"id":"ref-for-claim-summary\u2464"},{"id":"ref-for-claim-summary\u2465"},{"id":"ref-for-claim-summary\u2466"},{"id":"ref-for-claim-summary\u2467"},{"id":"ref-for-claim-summary\u2468"},{"id":"ref-for-claim-summary\u2460\u24ea"},{"id":"ref-for-claim-summary\u2460\u2460"}],"title":"5.4.1. Claim Summary"},{"refs":[{"id":"ref-for-claim-summary\u2460\u2461"},{"id":"ref-for-claim-summary\u2460\u2462"},{"id":"ref-for-claim-summary\u2460\u2463"},{"id":"ref-for-claim-summary\u2460\u2464"},{"id":"ref-for-claim-summary\u2460\u2465"}],"title":"5.4.2. Announce"},{"refs":[{"id":"ref-for-claim-summary\u2460\u2466"},{"id":"ref-for-claim-summary\u2460\u2467"},{"id":"ref-for-claim-summary\u2460\u2468"},{"id":"ref-for-claim-summary\u2461\u24ea"},{"id":"ref-for-claim-summary\u2461\u2460"}],"title":"6. Claim Summary"},{"refs":[{"id":"ref-for-claim-summary\u2461\u2461"},{"id":"ref-for-claim-summary\u2461\u2462"}],"title":"7. Activity Log"}],"url":"#claim-summary"},
-"claims-network": {"dfnID":"claims-network","dfnText":"Claims network","external":false,"refSections":[{"refs":[{"id":"ref-for-claims-network"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claims-network\u2460"},{"id":"ref-for-claims-network\u2461"},{"id":"ref-for-claims-network\u2462"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-claims-network\u2463"},{"id":"ref-for-claims-network\u2464"}],"title":"4. General Process Flow"},{"refs":[{"id":"ref-for-claims-network\u2465"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-claims-network\u2466"}],"title":"5.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-claims-network\u2467"}],"title":"5.3.3. Announce"},{"refs":[{"id":"ref-for-claims-network\u2468"}],"title":"7. Activity Log"}],"url":"#claims-network"},
-"claims-service": {"dfnID":"claims-service","dfnText":"Claims service","external":false,"refSections":[{"refs":[{"id":"ref-for-claims-service"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claims-service\u2460"}],"title":"5. Network communication patterns"}],"url":"#claims-service"},
+"claims-network": {"dfnID":"claims-network","dfnText":"Claims network","external":false,"refSections":[{"refs":[{"id":"ref-for-claims-network"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claims-network\u2460"},{"id":"ref-for-claims-network\u2461"},{"id":"ref-for-claims-network\u2462"}],"title":"3. Terminology"},{"refs":[{"id":"ref-for-claims-network\u2463"},{"id":"ref-for-claims-network\u2464"}],"title":"4. General Process Flow"},{"refs":[{"id":"ref-for-claims-network\u2465"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-claims-network\u2466"}],"title":"5.1. Academic social network service to claim bot"},{"refs":[{"id":"ref-for-claims-network\u2467"}],"title":"5.3.3. Announce"},{"refs":[{"id":"ref-for-claims-network\u2468"}],"title":"7. Activity Log"},{"refs":[{"id":"ref-for-claims-network\u2460\u24ea"},{"id":"ref-for-claims-network\u2460\u2460"},{"id":"ref-for-claims-network\u2460\u2461"},{"id":"ref-for-claims-network\u2460\u2462"},{"id":"ref-for-claims-network\u2460\u2463"}],"title":"8. Network identities & trust"}],"url":"#claims-network"},
+"claims-service": {"dfnID":"claims-service","dfnText":"Claims service","external":false,"refSections":[{"refs":[{"id":"ref-for-claims-service"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-claims-service\u2460"}],"title":"5. Network communication patterns"},{"refs":[{"id":"ref-for-claims-service\u2461"},{"id":"ref-for-claims-service\u2462"},{"id":"ref-for-claims-service\u2463"},{"id":"ref-for-claims-service\u2464"}],"title":"8. Network identities & trust"}],"url":"#claims-service"},
 "data-node": {"dfnID":"data-node","dfnText":"Data Node","external":false,"refSections":[{"refs":[{"id":"ref-for-data-node"},{"id":"ref-for-data-node\u2460"}],"title":"3. Terminology"}],"url":"#data-node"},
 "inbox": {"dfnID":"inbox","dfnText":"Inbox","external":false,"refSections":[{"refs":[{"id":"ref-for-inbox"}],"title":"5.1.1. Announce"},{"refs":[{"id":"ref-for-inbox\u2460"},{"id":"ref-for-inbox\u2461"}],"title":"5.2.1. Offer"},{"refs":[{"id":"ref-for-inbox\u2462"},{"id":"ref-for-inbox\u2463"},{"id":"ref-for-inbox\u2464"},{"id":"ref-for-inbox\u2465"}],"title":"5.3. Summarizer to claim bot service"},{"refs":[{"id":"ref-for-inbox\u2466"},{"id":"ref-for-inbox\u2467"}],"title":"5.3.1. Accept"},{"refs":[{"id":"ref-for-inbox\u2468"},{"id":"ref-for-inbox\u2460\u24ea"}],"title":"5.3.2. Reject"},{"refs":[{"id":"ref-for-inbox\u2460\u2460"},{"id":"ref-for-inbox\u2460\u2461"}],"title":"5.3.3. Announce"}],"url":"#inbox"},
 "notification": {"dfnID":"notification","dfnText":"Notification","external":false,"refSections":[],"url":"#notification"},

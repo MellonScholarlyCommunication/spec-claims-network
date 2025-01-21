@@ -24,13 +24,13 @@ In 2024, SURF (the ICR cooperative of Dutch education and research institutions)
 
 An overview of a processing flow in the claims network is listed below. The details of such a processing flow will be presented in section 4.
 
-- [1] Alice, a Dutch researcher, wants to claim a new contribution artifact at <tt>URL-F</tt> for her scholarly record. 
-- [2] Alice, as an account on a national [=academic social networking service=] which provides researchers a safe communication medium to support informal researcher interactions with a focus on science, popularization of science, and education. In the Figure 1, the national academic social service <tt>social.edu.nl</tt> is implemented using Mastodon. With a 'toot' message including the <tt>URL-F</tt>, Alice claims her contribution. In her toot she sends a carbon-copy (cc) of this notification to a [=claim bot=] at the Mastodon handle <tt>@logbot@bots.surf.nl</tt>.
+- [1] Carol, a Dutch researcher, wants to claim a new contribution artifact at <tt>URL-F</tt> for her scholarly record. 
+- [2] Carol, as an account on a national [=academic social networking service=] which provides researchers a safe communication medium to support informal researcher interactions with a focus on science, popularization of science, and education. In the Figure 1, the national academic social service <tt>social.edu.nl</tt> is implemented using Mastodon. With a 'toot' message including the <tt>URL-F</tt>, Carol claims her contribution. In her toot she sends a carbon-copy (cc) of this notification to a [=claim bot=] at the Mastodon handle <tt>@logbot@bots.surf.nl</tt>.
 - [3] Using the Mastodon API, the [=claim bot=] receives a notification for every toot address to the bot account <tt>@logbot@bots.surf.nl</tt>. 
 - [4] The [=claim bot=] reads the claimed artifact <tt>URL-F</tt> from the incoming toot and uses one or more [=summarizer services=] in the network to collect descriptive metadata for this URL.
 - [5] The [=summarizer service=], on request, generates a metadata summary for <tt>URL-F</tt>.
 - [6] When a summary is available, the [=summarizer service=] updates the [=claim bot=] about the metadata summary.
-- [7] The [=claim bot=] uses the summary to update a public [=activity log=] with Carol's contributions. This activity log can be used by a national [=claims service=] (e.g. a CRIS system) to update the scholarly record for Alice.
+- [7] The [=claim bot=] uses the summary to update a public [=activity log=] with Carol's contributions. This activity log can be used by a national [=claims service=] (e.g. a CRIS system) to update the scholarly record for Carol.
 
 Functional and non-functional requirements {#functional}
 ========================================================
@@ -110,7 +110,7 @@ The processing workflow in a [=claim network=] is depicted in Figure 2 and is ex
      src="images/claims_network.svg">
 *Figure 2: notification exchanges in a claims network*
 
-**Step (1)** The processing workflow in Figure 2 when a researcher, depicted as <tt>Alice</tt>, creates a toot in an [=academic social networking service=] presenting a contribution to her scholarly record. In our example we will use [Mastodon](https://joinmastodon.org) as the implementation of such a service. Each claim toot contains at least a URL to an [=artifact=] and a references to a Mastodon account of a [=claim bot=]
+**Step (1)** The processing workflow in Figure 2 when a researcher, depicted as <tt>Carol</tt>, creates a toot in an [=academic social networking service=] presenting a contribution to her scholarly record. In our example we will use [Mastodon](https://joinmastodon.org) as the implementation of such a service. Each claim toot contains at least a URL to an [=artifact=] and a references to a Mastodon account of a [=claim bot=]
 . An example of such a toot could be:
 
 <pre>
@@ -118,9 +118,9 @@ The processing workflow in a [=claim network=] is depicted in Figure 2 and is ex
 https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl</tt>
 </pre>
 
-In our examples we assume that this toot is available at the URL <tt>https://social.edu.nl/@alice/112891078566219289</tt>. The toot with this URL we call the [=claim=]. The URL <tt>https://parliament.nl/questions/2025-21-121291</tt> we will call the (claim) [=artifact=].
+In our examples we assume that this toot is available at the URL <tt>https://social.edu.nl/@Carol/112891078566219289</tt>. The toot with this URL we call the [=claim=]. The URL <tt>https://parliament.nl/questions/2025-21-121291</tt> we will call the (claim) [=artifact=].
 
-**Step (2)** A process in the associated with  [=claim bot=] monitors toots that are directed to the Mastodon account of the [=claim bot=]. This process picks up the new toot from Alice.
+**Step (2)** A process in the associated with  [=claim bot=] monitors toots that are directed to the Mastodon account of the [=claim bot=]. This process picks up the new toot from Carol.
 
 **Step (3)** The process of Step 2, transforms each [=artifact=] in the toot ([=claim=]) into an [Event Notifications in Value-Adding Networks](https://www.eventnotifications.net) (EN) LDN+AS2 <tt>Announce</tt> notification and deliver this notification to the LDN Inbox of the [=claim bot=].
 
@@ -134,7 +134,7 @@ In our examples we assume that this toot is available at the URL <tt>https://soc
 
 **Step (8)** The [=claim bot=] uses the [=service result=] of the [=summarizer service=] to publish an RDF [=claim summary=]. The [=claim bot=] sends an LDN+AS2 <tt>Announce</tt> notification to a [=activity log=] with the location of the [=claim summary=]. The activity log uses this information to document open science activities of the researcher.
 
-**Step (9)** The [=claim bot=] send a toot to Alice informing her about the update of the [=activity log=].
+**Step (9)** The [=claim bot=] send a toot to Carol informing her about the update of the [=activity log=].
 
 Network communication patterns {#network-communication-patterns}
 ===============================
@@ -145,10 +145,10 @@ Depending on the type of sender an receiver different types of notifications tha
 
 ## Academic social network service to claim bot ## {#pattern-social-claim-bot}
 
-The **academic social network service to claim bot** pattern is used by the [=academic social networking service=] to forward [=claims=] to a [=claims bot=]. Example 1 provides an example of such a [=claim=] made by the researcher Alice on a Mastodon instance hosted at <tt>https://social.edu.nl</tt>.
+The **academic social network service to claim bot** pattern is used by the [=academic social networking service=] to forward [=claims=] to a [=claims bot=]. Example 1 provides an example of such a [=claim=] made by the researcher Carol on a Mastodon instance hosted at <tt>https://social.edu.nl</tt>.
 
 <div class="example">
-Alice creates a toot on <tt>social.edu.nl</tt> claiming her the [=artifact=] <tt>https://parliament.nl/questions/2025-21-121291</tt>.
+Carol creates a toot on <tt>social.edu.nl</tt> claiming her the [=artifact=] <tt>https://parliament.nl/questions/2025-21-121291</tt>.
 
 <pre>
 I just submitted my first question to the Dutch parliament! 
@@ -399,7 +399,7 @@ show:
 Claim Summary {#claim-summary}
 ==============================
 
-A [=claim summary=] is an RDF source in the JSON-LD format containing a summary of a claim [=artifact=] including provenance information about the [=claim=] itself. Each [=claim summary=] has the following properties:
+A [=claim summary=] is an RDF source with a JSON-LD serialization format containing a summary of a claim [=artifact=], including provenance information about the [=claim=] itself. Each [=claim summary=] has the following properties:
 
 - The `id` property should contain a new minted identifier for every [=claim summary=].
 - The `type` property is the fixed string <tt>Claim</tt>.
@@ -426,14 +426,34 @@ Activity Log {#activity-log}
 
 An activity log is a public machine-readable append-only Web resource that contains descriptive metadata about claims artifacts created by a researcher combined with provenance information about the claim itself. 
 
-Individual [=claim summaries=] are published as RDF resources. A logical next step would be to make all these RDF resources accessible through an RDF endpoint. In a [=claims network=], we follow the [Linked Data Fragments](https://linkeddatafragments.org) architecture, which does not prescribe a specific publication platform for such logs. A collection of [=claim summaries=] can be made available as a downloadable dump. This solution would be expensive for clients. At the high end a [[sparql-query|SPARQL]] end point would provide clients with a query interface, but a high implementation cost for servers. In the middle a [Quad Pattern Fragments](https://linkeddatafragments.org/specification/quad-pattern-fragments/) service could be setup that is relatively a low bandwidth solution for a server and a bit higher implementation cost for clients.
+Individual [=claim summaries=] are published as RDF resources. A logical next step would be to make all these RDF resources accessible through an RDF endpoint. In a [=claims network=], we follow the [Linked Data Fragments](https://linkeddatafragments.org) architecture, which does not prescribe a specific publication platform for such logs. A collection of [=claim summaries=] can be made available as a downloadable dump, this solution would be expensive for clients. At the high end a [[sparql-query|SPARQL]] end-point would provide clients with a query interface, but a high implementation cost for servers. In the middle a [Quad Pattern Fragments](https://linkeddatafragments.org/specification/quad-pattern-fragments/) service could be setup that is relatively a low bandwidth solution for a server and a bit higher implementation cost for clients.
 
-Discovery of network components and trust {#discovery}
-============================================
+Network identities & trust {#network-identities-trust}
+======================================================
+
+Human actors within a [=claims network=] can adopt different identities across various platforms. A [=academic social networking service=] and [=claims service=] are two examples of such services where identities for a human actor can be defined. These identities do not need to be unique nor uniform across the network. For example, the researcher Carol may have multiple identities in an [=academic social networking service=]: `@carol@social.edu.nl`, which serves as her personal official identity, and `@drcat@social.edu.nl`, which functions as her anonymous identity. In the [=claim service=], the CRIS system, Carol can have the identity `@carol.hayes@portal.edu.nl`.
+
+In general, without a trust mechanism, it becomes challenging for automated processes to determine whether [=claims=] made by arbitrary identities are genuine. Are these claims truly generated by a real person? Is this person affiliated with a research institution within the network? Furthermore, how is an identity in an [=academic social networking service=] linked to another identity in a [=claims service=]? To provide an answer to these questions a [=claims network=] should incorporate provide the following mechanisms:
+
+Any [=claims=] that are of any relevance in a [=claims network=] are those that generatd by a person X with identity <span class="scr">A</span> in a [=academic social networking service=] and an identity <span class="scr">C</span> in a [=claims service=] for which:
+
+1. The person X has full control over [=claims=] made by identity <span class="scr">A</span>.
+	- There is a reasonable believe that there is no person Y such that X !=Y that can generate [=claims=] using identity <span class="scr">A</span>.
+2. The identity <span class="scr">A</span> can be uniquely linked to the identity <span class="scr">C</span>.
+3. The person X with identity <span class="scr">A</span> is the same as the person with identity <span class="scr">C</span>.
+4. For every identity <span class="scr">A</span> or <span class="scr">C</span> is should be possible to verify that the person associated with the identity is a member of the [=claims network=] (or a specific subset of it).
+	- For instance, it should be possible to determine that person X with identity <span class="scr">A</span> is affiliated with a Dutch research institute.
+
+The trust mechanisms outlined above do not impose any requirements for trusting the content of the [=claim=] itself. In a [=claims network=] we rely on a trust by reputation where the reliability of  a person is based on their past behavior in the network. Reputation serves as an indirect indicator of the trustworthiness a person. Aggregated feedback, such as social validation or reputation systems, can offer valuable insights into the trustworthiness of claims made by an individual. Although such reputation systems are relatively straightforward to implement, they are not entirely foolproof.
+
+In implementing the trust requirements outlined in the previous section, requirement 1 cannot be translated into an enforceable rule. Requirement 1 necessitates security measures that safeguard a social media account against the unauthorized posting of [=claims=]. [=Academic social networking services=] may require robust security measures, including a strong password policy, multi-factor authentication, up-to-date SSL certificates, thorough security audits, regular software updates, and a proven reputation for delivering secure, ethical, and privacy-preserving services.
+
+Verification service {#verification-service}
+===========================================
 
 TDB
 
-Process Flow with Trust {#trust-process-flow}
+Trust Process Flow {#trust-process-flow}
 ============================
 
 TDB
@@ -450,3 +470,9 @@ TDB
 	}
 }
 </pre>
+
+<style>
+.scr {
+  font-family: 'Brush Script MT', cursive;
+}
+</style>

@@ -9,7 +9,7 @@
           "author" : {
              "id" : "https://orcid.org/0000-0000-0000-0001",
              "familyName" : "Hayes",
-             "givenName" : "Alice",
+             "givenName" : "Carol",
              "type" : "Person"
           },
           "datePublished" : "2025",
@@ -19,7 +19,7 @@
     },
     "creator" : {
        "id" : "https://social.edu.nl/@alice",
-       "name" : "Alice Hayes",
+       "name" : "Carol Hayes",
        "type" : "Person"
     },
     "isBasedOn" : "https://social.edu.nl/@alice/112891078566219289",
