@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version ac5ea272d, updated Fri Dec 6 15:45:15 2024 -0800" name="generator">
   <link href="_ORCHESTRATOR_CURRENT_BUILD_FULL_LINK_" rel="canonical">
-  <meta content="f0082b7f8dceb472f5bfa9b42cb445ade9d8b827" name="revision">
+  <meta content="dc5678d532cc58e0d7aa5bcf84c52732ab22893a" name="revision">
   <meta content="dark light" name="color-scheme">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
@@ -2234,9 +2234,8 @@ Parts of this work may be from another specification document.  If so, those par
      </ol>
     <li><a href="#claim-summary①"><span class="secno">6</span> <span class="content">Claim Summary</span></a>
     <li><a href="#activity-log①"><span class="secno">7</span> <span class="content">Activity Log</span></a>
-    <li><a href="#discovery"><span class="secno">8</span> <span class="content">Discovery of network components</span></a>
-    <li><a href="#trust"><span class="secno">9</span> <span class="content">Trust</span></a>
-    <li><a href="#trust-process-flow"><span class="secno">10</span> <span class="content">Process Flow with Trust</span></a>
+    <li><a href="#discovery"><span class="secno">8</span> <span class="content">Discovery of network components and trust</span></a>
+    <li><a href="#trust-process-flow"><span class="secno">9</span> <span class="content">Process Flow with Trust</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -3300,11 +3299,9 @@ https://parliament.nl/questions/2025-21-121291 /cc @logbot@bots.surf.nl
    <h2 class="heading settled" data-level="7" id="activity-log①"><span class="secno">7. </span><span class="content">Activity Log</span><a class="self-link" href="#activity-log①"></a></h2>
    <p>An activity log is a public machine-readable append-only Web resource that contains descriptive metadata about claims artifacts created by a researcher combined with provenance information about the claim itself.</p>
    <p>Individual <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary②②">claim summaries</a> are published as RDF resources. A logical next step would be to make all these RDF resources accessible through an RDF endpoint. In a <a data-link-type="dfn" href="#claims-network" id="ref-for-claims-network⑨">claims network</a>, we follow the <a href="https://linkeddatafragments.org">Linked Data Fragments</a> architecture, which does not prescribe a specific publication platform for such logs. A collection of <a data-link-type="dfn" href="#claim-summary" id="ref-for-claim-summary②③">claim summaries</a> can be made available as a downloadable dump. This solution would be expensive for clients. At the high end a <a data-link-type="biblio" href="#biblio-sparql-query" title="SPARQL Query Language for RDF">SPARQL</a> end point would provide clients with a query interface, but a high implementation cost for servers. In the middle a <a href="https://linkeddatafragments.org/specification/quad-pattern-fragments/">Quad Pattern Fragments</a> service could be setup that is relatively a low bandwidth solution for a server and a bit higher implementation cost for clients.</p>
-   <h2 class="heading settled" data-level="8" id="discovery"><span class="secno">8. </span><span class="content">Discovery of network components</span><a class="self-link" href="#discovery"></a></h2>
+   <h2 class="heading settled" data-level="8" id="discovery"><span class="secno">8. </span><span class="content">Discovery of network components and trust</span><a class="self-link" href="#discovery"></a></h2>
    <p>TDB</p>
-   <h2 class="heading settled" data-level="9" id="trust"><span class="secno">9. </span><span class="content">Trust</span><a class="self-link" href="#trust"></a></h2>
-   <p>TDB</p>
-   <h2 class="heading settled" data-level="10" id="trust-process-flow"><span class="secno">10. </span><span class="content">Process Flow with Trust</span><a class="self-link" href="#trust-process-flow"></a></h2>
+   <h2 class="heading settled" data-level="9" id="trust-process-flow"><span class="secno">9. </span><span class="content">Process Flow with Trust</span><a class="self-link" href="#trust-process-flow"></a></h2>
    <p>TDB</p>
   </main>
   <div data-fill-with="conformance">
