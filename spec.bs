@@ -137,6 +137,9 @@ In our examples we assume that this toot is available at the URL <tt>https://soc
 
 **Step (9)** The [=claim bot=] send a toot to Carol informing her about the update of the [=activity log=].
 
+
+Issue: Add archivation of [=claim=] step
+
 Network communication patterns {#network-communication-patterns}
 ===============================
 
@@ -397,6 +400,8 @@ show:
 </pre>
 </div>
 
+Issue: Add [=claim=] archivation communication steps
+
 Claim Summary {#claim-summary}
 ==============================
 
@@ -421,6 +426,8 @@ A [=claim summary=] is an RDF source with a JSON-LD serialization format contain
 	- As value of the `name` property, the name of the [=claim bot=].
 
 An example of a [=claim summary=] document is provided in Example 8.
+
+Issue: Add link to archived [=claim=] in claim summary 
 
 Activity Log {#activity-log}
 ============================
@@ -492,6 +499,8 @@ With the network components described above any updated version of the general p
 **Step (5)** The [=claim bot=] issues a HTTP GET request against the [=verification service=] profile link. The [=claim bot=] inspect the [=verification service=] profile to check if a [rel="me"](https://microformats.org/wiki/rel-me) back-link can be found to the [=academic social networking service=] profile. If no such link can be found, then the processing of the LDN+AS2 notification stops. The notification in this case is ignored.
 
 **Step (6)** The [=claim bot=] inspects the [=verification service=] profile to check if a link an be found to a [=claims service=] profile. If no such link can be found, then the processing of the LDN+AS2 notification stops. The notification in this case is ignored. Given a link to a [=claims service=] profile, an HTTP GET request is issued. When the [=claims service=] profile contains a back-link to the [=verification service=] the identities of Carol Hayes are verified and the rest of the general process workflow for the incoming [=claim=] can continue.
+
+Issue: Add support for multiple [=verification services=]
 
 Verification service {#verification-service}
 ===========================================
