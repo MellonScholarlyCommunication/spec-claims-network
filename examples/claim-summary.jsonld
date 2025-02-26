@@ -19,8 +19,10 @@
     },
     "creator" : {
        "id" : "https://social.edu.nl/@alice",
+       "type" : "Person",
        "name" : "Carol Hayes",
-       "type" : "Person"
+       "claimProfile": "https://productivity.portal.nl/researcher/NL-8390-6171",
+       "verificationProfile": "https://profiles.surf.nl/user/2139-31-01"
     },
     "isBasedOn" : "https://social.edu.nl/@alice/112891078566219289",
     "mainEntity" : "https://parliament.nl/questions/2025-21-121291",
