@@ -402,10 +402,17 @@ show:
 
 Issue: Add [=claim=] archivation communication steps
 
-Claim Summary {#claim-summary}
-==============================
+Claim Summary {#claim-summary-1}
+==============
 
-A [=claim summary=] is an RDF source with a JSON-LD serialization format containing a summary of a claim [=artifact=], including provenance information about the [=claim=] itself. Each [=claim summary=] has the following properties:
+<img alt="Overview claim summary RDF model"
+     width="500"
+     src="images/claim_summary.svg">
+
+*Figure 3: The claim summary RDF model.*
+
+A [=claim summary=] is an RDF source with a JSON-LD serialization format containing a summary of a claim [=artifact=], including provenance information about the [=claim=] itself. 
+The RDF module is depicted in Figure 5. In the JSON-LD serialization each [=claim summary=] has the following properties:
 
 - The `id` property should contain a new minted identifier for every [=claim summary=].
 - The `type` property is the fixed string <tt>Claim</tt>.
@@ -417,6 +424,8 @@ A [=claim summary=] is an RDF source with a JSON-LD serialization format contain
 	- As value of the `id` property, the URL of the [=academic social networking service=] account that made the claim.
 	- As value of the `type` property, the fixed string <tt>Person</tt>.
 	- As value of the `name` property, the full name associated with the [=academic social networking service=] account.
+	- As value of the `claimProfile` property, the URL of the [=claim service=] profile of the creator.
+	- As value of the `verificationProfile` property, the URL of the [=verification service=] profile of the creator.
 - The `isBasedOn` property should contain the URL of the [=claim=].
 - The `mainEntity` property should contain the URL of the [=artifact=] that is mentioned in the [=claim=].
 - The `sdDatePublished` property should contain the ISO 8601 publication date of the [=claim summary=].
@@ -429,7 +438,7 @@ An example of a [=claim summary=] document is provided in Example 8.
 
 Issue: Add link to archived [=claim=] in claim summary 
 
-Activity Log {#activity-log}
+Activity Log {#activity-log-1}
 ============================
 
 An activity log is a public machine-readable append-only Web resource that contains descriptive metadata about claims artifacts created by a researcher combined with provenance information about the claim itself. 
@@ -462,7 +471,7 @@ Requirement 2 can be implemented using a microformat [rel="me"](https://microfor
 
 Using the same [rel="me"](https://microformats.org/wiki/rel-me) mechanism, the [=claims service=] can also include a link from the user profile (identity <span class="scr">B</span>) pointing to the [=verification service=]. If the [=verification service=] includes a back-link to the [=claims service=] user profile, also this connection between the two service is considered 'verified'.
 
-In Figure 3 we demonstrate the linkages between the three identities of the researcher Carol Hayes:
+In Figure 4 we demonstrate the linkages between the three identities of the researcher Carol Hayes:
 
 - <tt>@carol@social.edu.nl</tt> at the [=academic social networking service=];
 - <tt>https://surfconnect.nl/user/1298138</tt> at the [=verification service=];
@@ -472,7 +481,7 @@ In Figure 3 we demonstrate the linkages between the three identities of the rese
      width="700"
      src="images/identities_diagram.svg">
 	 
-*Figure 3: linked identities in a claims network.*
+*Figure 4: linked identities in a claims network.*
 
 In each of the services in Figure 3 Carol Hayes has a profile page which includes [rel="me"](https://microformats.org/wiki/rel-me) links to other services in the [=claim network=]. On her [=academic social networking service=] profile she add a link to her profile in the [=verification service=]. Similarly, on the [=claims service=] profile she adds a link to her profile in the [=verification service=]. The [=verification service=] profile, in turn, contains back-links to both her [=academic social networking service=] profile and [=claims service=] profile.
 
@@ -484,11 +493,11 @@ Requirement 3 is not directly enforceable and requires trust in the [=verificati
      width="700"
      src="images/verification_network.svg">
 
-*Figure 4: a fragment of the workflow of Figure 2 include the verification of identities.*
+*Figure 5: a fragment of the workflow of Figure 2 include the verification of identities.*
 
 With the network components described above any updated version of the general process flow of section 4 is presented in Figure 4.
 
-**Step (1)** The processing workflow in Figure 4 start again when a researcher, depicted as <tt>Carol</tt>, creates a [=claim=] in the [=academic social networking service=] with a reference to the Mastodon account of a [=claim bot=].
+**Step (1)** The processing workflow in Figure 5  start again when a researcher, depicted as <tt>Carol</tt>, creates a [=claim=] in the [=academic social networking service=] with a reference to the Mastodon account of a [=claim bot=].
 
 **Step (2)** A process in the associated with  [=claim bot=] monitors toots that are directed to the Mastodon account of the [=claim bot=]. This process picks up the new toot from Carol.
 
